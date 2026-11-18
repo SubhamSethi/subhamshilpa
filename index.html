@@ -191,10 +191,11 @@ h2,h3{font-family:var(--display)}
 .t-trip{grid-column:span 3;background:linear-gradient(160deg,rgba(164,124,255,.16),rgba(255,255,255,.03) 60%)}
 .t-trip p,.t-trip .tag{color:var(--night-muted)}
 .t-gift{grid-column:span 3}
-.t-wall{grid-column:span 3;background:linear-gradient(160deg,rgba(255,94,63,.14),rgba(255,255,255,.03) 60%)}
+.t-wed{grid-column:span 3;background:linear-gradient(160deg,rgba(255,201,92,.14),rgba(255,255,255,.03) 60%)}
+.t-wall{grid-column:span 6;background:linear-gradient(160deg,rgba(255,94,63,.14),rgba(255,255,255,.03) 60%)}
 .t-mini{grid-column:span 2;min-height:150px;cursor:default}
 .t-mini b{font-family:var(--display);font-size:30px;font-weight:600;letter-spacing:-.04em;line-height:1}
-@media (max-width:820px){.t-home,.t-trip,.t-gift,.t-wall{grid-column:span 6}.t-mini{grid-column:span 3}.t-raised{grid-column:span 6}}
+@media (max-width:820px){.t-home,.t-trip,.t-gift,.t-wall,.t-wed{grid-column:span 6}.t-mini{grid-column:span 3}.t-raised{grid-column:span 6}}
 .ring{width:88px;height:88px;filter:drop-shadow(0 0 10px rgba(255,94,63,.45))}
 .ring circle{fill:none;stroke-width:8}
 .ring .bg{stroke:rgba(255,255,255,.08)}
@@ -603,9 +604,8 @@ footer .names{font-size:clamp(34px,6vw,60px);margin:0 0 12px;color:var(--ink)}
 .ch-wrap{max-width:1280px;margin:0 auto}
 @media (min-width:1000px){
   .ch-cols{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:28px;align-items:start}
-  .ch-side{position:sticky;top:0}
   .ch-cols .cf-grid{grid-template-columns:1fr}
-  .ch-cols .cf{min-height:250px}
+  .ch-cols .cf{min-height:200px}
   .ch-cols .cf-in b{font-size:22px}
   .ch-cols .cg-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .sheet.full .ch-top{margin:6px auto 18px}
@@ -727,7 +727,7 @@ footer .names{font-size:clamp(34px,6vw,60px);margin:0 0 12px;color:var(--ink)}
 <button class="fab pill" type="button" id="fab" data-chooser aria-label="Send a gift"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="3" y="9" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 13h18M12 9v12M12 9C9 9 7 7.5 7 6s1.3-2.5 2.7-2C11 4.5 12 9 12 9zm0 0c3 0 5-1.5 5-3s-1.3-2.5-2.7-2C13 4.5 12 9 12 9z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Send a gift</button>
 <canvas id="confetti"></canvas>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<script src="config.js?v=202611181609"></script>
+<script src="config.js?v=202611181751"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 (function(){
@@ -985,10 +985,10 @@ function shareLinks(){
   return L.map(l=>({...l, url: l.h ? b+'#'+l.h : b}));
 }
 let routed='';
-function route(){
+function route(initial){
   const h=decodeURIComponent((location.hash||'').slice(1));
   if(!h || h===routed) return; routed=h;
-  const go=(id,cb)=>{ const el=$(id); if(!el) return; setTimeout(()=>{ el.scrollIntoView({behavior:RM?'auto':'smooth',block:'start'}); if(cb) setTimeout(cb, RM?0:700); }, 60); };
+  const go=(id,cb)=>{ const el=$(id); if(!el) return; setTimeout(()=>{ el.scrollIntoView({behavior:(RM||initial)?'instant':'smooth',block:'start'}); if(initial) setTimeout(()=>{ if(Math.abs(el.getBoundingClientRect().top)>120) el.scrollIntoView({behavior:'instant',block:'start'}); },1200); if(cb) setTimeout(cb, (RM||initial)?150:700); }, initial?250:60); };
   if(h===O1.id || h===O2.id || h==='fly-us') return go('honeymoon', ()=>startFund('honeymoon'));
   if(h==='add-brick') return go('home', ()=>startFund('home'));
   if(h==='give'){ setTimeout(openChooser,300); return; }
@@ -1079,9 +1079,15 @@ function render(){
         <span class="tag">Our honeymoon</span>
         <h3>Send us to ${esc(O1.name)}<br>or ${esc(O2.name)}.</h3>
         <p>We haven't picked yet. It'll be one of these two.</p>
-        <div class="split"><span style="flex-basis:${tp}%;background:linear-gradient(90deg,${O1.color},${O2.color})"></span></div>
         ${fundProgress(tf,'tile-prog')}
         <span class="more" style="color:var(--gold)">Contribute to the trip</span>
+      </a>
+      <a class="tile t-wed rv tilt ring-border" href="#wedfund" style="--c:var(--gold)">${SHINE}
+        <span class="tag">The big day</span>
+        <h3>Help us throw<br>the wedding.</h3>
+        <p>Four celebrations and a lot of people to feed. Chip in if you'd like.</p>
+        ${fundProgress(S.funds.wedding,'tile-prog')}
+        <span class="more" style="color:var(--gold)">Contribute to the wedding</span>
       </a>
       <a class="tile t-wall rv tilt ring-border" href="#wall">${SHINE}
         <span class="tag">From friends and family</span>
@@ -1124,6 +1130,22 @@ function render(){
       ${optCard(O2, destArt(O2,'Masai Mara','1.49° S · 35.14° E'))}
     </div>
     <div class="trip-cta rv">${fundProgress(tf,'big')}<button class="pill" type="button" data-fund="honeymoon">Contribute to our honeymoon</button></div>
+  </div></section>
+
+  <section class="chapter" id="wedfund"><div class="wrap">
+    <div class="ch-head rv"><span class="eyebrow hud" data-scramble>The big day</span><h2>${esc(C.funds.wedding.title)}.</h2><p>${esc(C.funds.wedding.blurb)}</p></div>
+    <div class="home-grid wed-grid">
+      <div class="rv">
+        <div class="chip-list">${C.funds.wedding.chips.map(ch=>`<button type="button" data-fund="wedding" data-amt="${ch[0]}"><b>${rs(ch[0])}</b> · ${esc(ch[1])}</button>`).join('')}</div>
+        ${fundProgress(S.funds.wedding,'big')}
+        <button class="pill" type="button" data-fund="wedding">Contribute to the wedding</button>
+        <p class="fund-note">The amounts above are just ideas. Any amount is lovely.</p>
+      </div>
+      <figure class="home-photo rv">
+        <img src="${esc(C.funds.wedding.photo)}" alt="Subham and Shilpa in traditional clothes" loading="lazy">
+        <figcaption><small>${esc(C.funds.wedding.photoCaption)}</small><span>24 January 2027 · Saanaira Resorts &amp; Spa</span></figcaption>
+      </figure>
+    </div>
   </div></section>
 
   <section class="chapter tight" id="story"><div class="wrap">
@@ -1348,6 +1370,7 @@ function openChooser(){
     <div class="ch-side"><h4 class="ch-h">Or contribute towards</h4>
     <div class="cf-grid">
       <button type="button" class="cf" data-fund="home" style="--img:url('${esc(HOME.photo)}')"><span class="cf-in"><small>Our first home</small><b>Help us buy our first home</b><span>Every bit brings us closer to the keys.</span>${fundProgress(S.funds.home,'on-card')}<em>Add a brick →</em></span></button>
+      <button type="button" class="cf" data-fund="wedding" style="--img:url('${esc(C.funds.wedding.photo)}')"><span class="cf-in"><small>The big day</small><b>Help us throw the wedding</b><span>Four celebrations, a lot of people to feed.</span>${fundProgress(S.funds.wedding,'on-card')}<em>Contribute →</em></span></button>
       <button type="button" class="cf trip" data-fund="honeymoon" style="--a:${O1.color};--b:${O2.color}"><span class="cf-in"><small>Our honeymoon</small><b>${esc(O1.name)} or ${esc(O2.name)}</b><span>We haven't picked yet. It'll be one of these two.</span>${fundProgress(S.funds.honeymoon,'on-card')}<em>Contribute →</em></span></button>
     </div></div>
     </div>
@@ -1379,12 +1402,13 @@ $('scrim').addEventListener('click',e=>{ if(e.target===$('scrim')) closeSheet();
 document.addEventListener('keydown',e=>{ if(e.key==='Escape' && $('scrim').classList.contains('open')) closeSheet(); });
 const steps = n => `<div class="steps" aria-hidden="true">${[1,2,3].map(i=>`<i class="${i<=n?'on':''}"></i>`).join('')}</div>`;
 const giftOf = id => S.gifts.find(g=>g.id===id);
-function title(){ if(F.kind==='gift') return giftOf(F.id).name; if(F.id==='honeymoon') return 'The honeymoon'; return HOME.title; }
+function title(){ if(F.kind==='gift') return giftOf(F.id).name; if(F.id==='honeymoon') return 'The honeymoon'; return (C.funds[F.id]||HOME).title; }
 function startFund(id, option, amount){ F={kind:'fund',id,option:'',mode:'upi',amount:amount||null}; stepAmount(); }
 function startGift(id, mode){ const g=giftOf(id); if(!g) return; F={kind:'gift',id,mode,option:'',amount:mode==='chip'?null:g.price}; if(mode==='bring') return stepStamp(); if(mode==='whole') return stepPay(); stepAmount(); }
 function chipsFor(){
   if(F.kind==='gift'){ const g=giftOf(F.id), rem=g.remaining; const base=[[501,''],[1101,''],[2101,''],[5101,''],[11000,'']].filter(c=>c[0]<rem); return base.slice(-3).concat([[rem, rem===g.price*g.qty?'the whole thing':'the rest of it']]); }
   if(F.id==='home') return HOME.chips;
+  if(C.funds[F.id] && C.funds[F.id].chips && F.id!=='honeymoon') return C.funds[F.id].chips;
   const o=optById(F.option); return o?o.chips:GENERIC;
 }
 function stepAmount(){
@@ -1505,7 +1529,8 @@ function success(name, converted){
   confetti();
 }
 function copy(t,msg){ try{ navigator.clipboard.writeText(t).then(()=>toast(msg),()=>toast('Copy failed. Long-press to copy instead.')); }catch(e){ toast('Copy failed. Long-press to copy instead.'); } }
-function refresh(){ const ae=document.activeElement; if(ae && ae.closest && ae.closest('#noteForm')) return; const s=sig(); if(s!==lastSig){ lastSig=s; const y=window.scrollY; render(); window.scrollTo({top:y,behavior:'instant'}); } }
+const LOADED_AT=Date.now();
+function refresh(){ const ae=document.activeElement; if(ae && ae.closest && ae.closest('#noteForm')) return; const s=sig(); if(s!==lastSig){ lastSig=s; const y=window.scrollY; render(); const anchor=routed&&Date.now()-LOADED_AT<8000&&!$('scrim').classList.contains('open')?$(routed):null; if(anchor) anchor.scrollIntoView({behavior:'instant',block:'start'}); else window.scrollTo({top:y,behavior:'instant'}); } }
 
 document.addEventListener('click',e=>{
   const ch=e.target.closest('[data-chooser]'); if(ch){ openChooser(); return; }
@@ -1580,7 +1605,7 @@ if(fine && !RM){
 let taps=0, tapT=0;
 $('brand').addEventListener('click',e=>{ const now=Date.now(); taps = now-tapT<600 ? taps+1 : 1; tapT=now; if(taps>=5){ e.preventDefault(); taps=0; sushiRain(); } });
 
-render(); tick(); lastSig=sig(); sky(); route();
+render(); tick(); lastSig=sig(); sky(); route(true);
 if(C.apiUrl){ fetchState().then(ok=>ok?ok:new Promise(r=>setTimeout(r,2500)).then(fetchState)).then(()=>{ refresh(); if(location.hash.startsWith('#gift-')){ routed=''; route(); } }); setInterval(()=>{ if(!$('scrim').classList.contains('open')) fetchState().then(refresh); },60000); }
 })();
 </script>

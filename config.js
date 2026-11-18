@@ -78,6 +78,21 @@ window.REGISTRY = {
         [21000, "four square feet, roughly where the sofa goes"]
       ]
     },
+    wedding: {
+      title: "Our wedding",
+      blurb: "Four celebrations, three venues, and a lot of people to feed. If you'd like, you can chip in towards the big day itself.",
+      target: 1000000,
+      photo: "photos/traditional.jpg",
+      photoCaption: "Practising for the big day",
+      chips: [
+        [501, "a round of mocktails"],
+        [1101, "one guest's lunch"],
+        [2101, "lunch for two"],
+        [5101, "flowers for the mandap"],
+        [11000, "an hour of the sangeet DJ"],
+        [21000, "a day's worth of decor"]
+      ]
+    },
     honeymoon: {
       title: "The honeymoon",
       blurb: "We haven't decided yet, but it'll be one of these two. Anything you send goes towards the trip.",
