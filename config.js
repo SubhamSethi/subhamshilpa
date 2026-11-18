@@ -34,14 +34,14 @@ window.REGISTRY = {
   // venue: the hall, hotel or home · address: street / area · mapUrl: paste a Google Maps link, or leave "" and
   // the Directions button searches venue + address + city · dress: what to wear · note: anything else
   events: [
-    { name: "Haldi", date: "2027-01-23", time: "11:00", hours: 3, city: "Berhampur",
-      venue: "", address: "", mapUrl: "", dress: "", note: "" },
-    { name: "Sangeet", date: "2027-01-23", time: "19:00", hours: 4, city: "Berhampur",
-      venue: "", address: "", mapUrl: "", dress: "", note: "" },
+    { name: "Haldi", date: "2027-01-23", time: "11:00", hours: 3, city: "Gopalpur-on-Sea, Berhampur",
+      venue: "Storyline Cafe", address: "", mapUrl: "https://maps.app.goo.gl/hbN44PJ52bn1maHN6", dress: "", note: "" },
+    { name: "Sangeet", date: "2027-01-23", time: "19:00", hours: 4, city: "Gopalpur-on-Sea, Berhampur",
+      venue: "Storyline Cafe", address: "", mapUrl: "https://maps.app.goo.gl/hbN44PJ52bn1maHN6", dress: "", note: "" },
     { name: "Wedding", date: "2027-01-24", time: "16:15", hours: 6, city: "Berhampur", main: true,
-      venue: "", address: "", mapUrl: "", dress: "", note: "" },
+      venue: "Saanaira Resorts & Spa", address: "", mapUrl: "https://maps.app.goo.gl/4vzAYWqkDmQVLmoN7", dress: "", note: "" },
     { name: "Reception", date: "2027-01-27", time: "19:00", hours: 4, city: "Bhubaneswar",
-      venue: "", address: "", mapUrl: "", dress: "", note: "" }
+      venue: "Pipul Padmaja Premium Hotel and Convention", address: "", mapUrl: "https://maps.app.goo.gl/6CZwrM1jBBmgM3tb8", dress: "", note: "" }
   ],
 
   photos: {
