@@ -412,7 +412,33 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border-radius:50%;bac
 .gifted s{text-decoration-color:var(--accent);text-decoration-thickness:2px;font-weight:600}
 .gifted span{color:var(--muted)}
 
-/* ---------- Story ---------- */
+/* ---------- Story slideshow ---------- */
+.show{position:relative;border-radius:30px;overflow:hidden;background:#05040A;box-shadow:0 0 0 1px rgba(255,255,255,.12),0 50px 100px -40px rgba(255,61,127,.35);aspect-ratio:16/10;max-width:100%;touch-action:pan-y;user-select:none}
+@media (max-width:700px){.show{aspect-ratio:4/5}}
+.slide{position:absolute;inset:0;margin:0;opacity:0;transition:opacity 1.2s var(--ease);pointer-events:none}
+.slide.on{opacity:1;pointer-events:auto}
+.slide .bg{position:absolute;inset:-30px;background-size:cover;background-position:center;filter:blur(28px) brightness(.45) saturate(1.2)}
+.slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transform:scale(1.04)}
+@media (prefers-reduced-motion:no-preference){.slide.on img{animation:kb 7s ease-out both}.slide.on.alt img{animation-name:kb2}
+  @keyframes kb{from{transform:scale(1.04) translate(0,0)}to{transform:scale(1.12) translate(-1.5%,-1%)}}
+  @keyframes kb2{from{transform:scale(1.12) translate(1.5%,1%)}to{transform:scale(1.04) translate(0,0)}}}
+.slide figcaption{position:absolute;left:0;right:0;bottom:0;padding:70px clamp(18px,4vw,36px) 54px;background:linear-gradient(transparent,rgba(5,4,10,.85));display:grid;gap:4px}
+.slide figcaption small{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.slide figcaption span{font-family:var(--serif);font-style:italic;font-size:clamp(22px,3.4vw,34px);line-height:1.15}
+@media (prefers-reduced-motion:no-preference){.slide.on figcaption>*{animation:fadeUp .9s var(--ease) .3s both}.slide.on figcaption small{animation-delay:.15s}}
+.show-bars{position:absolute;left:clamp(18px,4vw,36px);right:clamp(18px,4vw,36px);bottom:24px;display:flex;gap:6px;z-index:3}
+.show-bars button{flex:1;height:14px;border:0;padding:5px 0;background:none;cursor:pointer}
+.show-bars button i{display:block;height:3px;border-radius:2px;background:rgba(255,255,255,.25);overflow:hidden}
+.show-bars button i::after{content:"";display:block;height:100%;width:100%;background:var(--ink);transform:scaleX(0);transform-origin:left}
+.show-bars button.seen i::after{transform:scaleX(1)}
+.show-bars button.on i::after{animation:fillbar var(--dur,5s) linear forwards}
+.show.paused .show-bars button.on i::after{animation-play-state:paused}
+@keyframes fillbar{to{transform:scaleX(1)}}
+.show-nav{position:absolute;top:50%;translate:0 -50%;width:46px;height:46px;border-radius:50%;border:0;background:rgba(10,8,20,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:var(--ink);font-size:20px;cursor:pointer;z-index:3;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18);transition:background .2s,transform .25s var(--spring)}
+.show-nav:hover{background:rgba(255,94,63,.5);transform:scale(1.08)}
+.show-nav.prev{left:14px}.show-nav.next{right:14px}
+.show-count{position:absolute;top:16px;right:18px;z-index:3;font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:rgba(244,241,251,.8);background:rgba(10,8,20,.5);padding:5px 10px;border-radius:980px}
+/* ---------- Story (old gallery, unused) ---------- */
 .gallery{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 22px 18px;margin:0 -22px;scrollbar-width:none}
 .gallery::-webkit-scrollbar{display:none}
 .gallery figure{flex:0 0 min(300px,72vw);margin:0;scroll-snap-align:center}
@@ -954,9 +980,13 @@ function render(){
   </div></section>
 
   <section class="chapter tight" id="story"><div class="wrap">
-    <div class="ch-head rv"><span class="eyebrow hud" data-scramble>Us, so far</span><h2>A few photos from the road to the mandap.</h2></div>
-    <div class="rail-wrap rv"><div class="gallery" id="gallery">${P.story.map(s=>`<figure><div class="ph"><img src="${esc(s.src)}" alt="${esc(s.caption)}" loading="lazy"></div><figcaption>${esc(s.caption)}</figcaption></figure>`).join('')}</div>
-    <div class="rail-btns"><button class="rbtn" type="button" data-rail="-1" data-target="gallery" aria-label="Previous photo">‹</button><button class="rbtn" type="button" data-rail="1" data-target="gallery" aria-label="Next photo">›</button></div></div>
+    <div class="ch-head rv"><span class="eyebrow hud" data-scramble>Us, so far</span><h2>From the first hello to the mandap.</h2></div>
+    <div class="show rv" id="show" role="region" aria-roledescription="slideshow" aria-label="Photos of us over the years">
+      ${P.story.map((st,i)=>`<figure class="slide${i%2?' alt':''}" aria-hidden="true"><div class="bg" style="background-image:url('${esc(st.src)}')"></div><img src="${esc(st.src)}" alt="${esc(st.caption||'Subham and Shilpa')}" ${i>1?'loading="lazy"':''}><figcaption>${st.when?`<small>${esc(st.when)}</small>`:''}<span>${esc(st.caption||'')}</span></figcaption></figure>`).join('')}
+      <span class="show-count num" id="showCount"></span>
+      <button class="show-nav prev" type="button" data-show="-1" aria-label="Previous photo">‹</button><button class="show-nav next" type="button" data-show="1" aria-label="Next photo">›</button>
+      <div class="show-bars">${P.story.map((_,i)=>`<button type="button" data-show-to="${i}" aria-label="Photo ${i+1}"><i></i></button>`).join('')}</div>
+    </div>
   </div></section>
 
   <section class="chapter tight" id="wall"><div class="wrap">
@@ -1012,6 +1042,7 @@ function afterRender(){
   }
   setupTry();
   startGlobe();
+  setupShow();
   setupNote();
   heroMotion();
   document.querySelectorAll('[data-scramble]').forEach(el=>{ if(!el.dataset.done) scrambleWhenSeen(el); });
@@ -1084,6 +1115,30 @@ function setupTry(){
   r.oninput=upd; upd();
   $('tryGive').onclick=()=>{ startFund('home', '', STEPS[tryIdx]); };
 }
+
+/* ---------- Slideshow ---------- */
+const SHOW={i:0,t:null,dur:5000,vis:false,hover:false,io:null};
+function showGo(n){
+  const el=$('show'); if(!el) return; const sl=el.querySelectorAll('.slide'), bars=el.querySelectorAll('.show-bars button'), N=sl.length; if(!N) return;
+  SHOW.i=(n+N)%N;
+  sl.forEach((x,k)=>{ x.classList.toggle('on',k===SHOW.i); x.setAttribute('aria-hidden',k!==SHOW.i); });
+  bars.forEach((b,k)=>{ b.classList.toggle('seen',k<SHOW.i); b.classList.remove('on'); if(k===SHOW.i){ void b.offsetWidth; b.classList.add('on'); } });
+  $('showCount').textContent=String(SHOW.i+1).padStart(2,'0')+' / '+String(N).padStart(2,'0');
+  clearTimeout(SHOW.t); if(!RM && SHOW.vis && !SHOW.hover && !document.hidden) SHOW.t=setTimeout(()=>showGo(SHOW.i+1),SHOW.dur);
+}
+function setupShow(){
+  const el=$('show'); if(!el) return; el.style.setProperty('--dur',SHOW.dur+'ms');
+  if(RM) el.classList.add('paused');
+  if(SHOW.io) SHOW.io.disconnect();
+  SHOW.io=new IntersectionObserver(es=>{ SHOW.vis=es[0].isIntersecting; el.classList.toggle('paused',!SHOW.vis||RM); showGo(SHOW.i); },{threshold:.4});
+  SHOW.io.observe(el);
+  el.onmouseenter=()=>{ SHOW.hover=true; el.classList.add('paused'); clearTimeout(SHOW.t); };
+  el.onmouseleave=()=>{ SHOW.hover=false; el.classList.toggle('paused',RM); showGo(SHOW.i); };
+  let x0=null; el.onpointerdown=e=>{ x0=e.clientX; }; el.onpointerup=e=>{ if(x0==null) return; const dx=e.clientX-x0; x0=null; if(Math.abs(dx)>40) showGo(SHOW.i+(dx<0?1:-1)); };
+  el.onkeydown=e=>{ if(e.key==='ArrowRight') showGo(SHOW.i+1); if(e.key==='ArrowLeft') showGo(SHOW.i-1); };
+  el.tabIndex=0; showGo(SHOW.i);
+}
+document.addEventListener('visibilitychange',()=>showGo(SHOW.i));
 
 /* ---------- Guestbook note ---------- */
 const NOTE={name:'',msg:'',sticker:'maki',fresh:false};
@@ -1250,6 +1305,8 @@ document.addEventListener('click',e=>{
   const go=e.target.closest('[data-go]'); if(go){ $(go.dataset.go).scrollIntoView({behavior:RM?'auto':'smooth'}); return; }
   const f=e.target.closest('[data-fund]'); if(f){ startFund(f.dataset.fund, f.dataset.option, f.dataset.amt?+f.dataset.amt:null); return; }
   const g=e.target.closest('[data-gift]'); if(g){ startGift(g.dataset.gift, g.dataset.mode); return; }
+  const sb=e.target.closest('[data-show]'); if(sb){ showGo(SHOW.i+(+sb.dataset.show)); return; }
+  const st=e.target.closest('[data-show-to]'); if(st){ showGo(+st.dataset.showTo); return; }
   const rb=e.target.closest('[data-rail]'); if(rb){ const r=$(rb.dataset.target||'rail'), card=r.firstElementChild; r.scrollBy({left:(+rb.dataset.rail)*((card?card.offsetWidth:320)+18),behavior:RM?'auto':'smooth'}); }
 });
 
