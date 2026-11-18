@@ -60,7 +60,17 @@ function doPost(e) {
     put('UPI ref', clean_(b.utr, 20));
     put('Payment verified', false);
     put('Hide from site', false);
-    wall.appendRow(row);
+    // Write under the last real entry (not appendRow: empty tick boxes count as content and push rows to the bottom).
+    const keyCol = (h['Received at'] !== undefined ? h['Received at'] : 0) + 1;
+    const keys = wall.getRange(1, keyCol, wall.getMaxRows(), 1).getValues();
+    let last = keys.length;
+    while (last > 1 && keys[last - 1][0] === '') last--;
+    const target = last + 1;
+    if (target > wall.getMaxRows()) wall.insertRowsAfter(wall.getMaxRows(), 200);
+    wall.getRange(target, 1, 1, row.length).setValues([row]);
+    ['Show amount on site', 'Payment verified', 'Hide from site'].forEach(function (k) {
+      if (h[k] !== undefined) wall.getRange(target, h[k] + 1).insertCheckboxes();
+    });
     SpreadsheetApp.flush();
 
     return json_({ ok: true, converted: converted, state: state_() });
