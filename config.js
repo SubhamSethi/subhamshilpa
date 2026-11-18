@@ -28,11 +28,19 @@ window.REGISTRY = {
 
   homeAirport: "BLR",
 
+  // The wedding section. Fill in any blank field and it appears on the page; blank fields stay hidden.
+  // date: YYYY-MM-DD · time: 24-hour "HH:MM" ("" if not fixed yet) · hours: rough length, for calendar invites
+  // venue: the hall, hotel or home · address: street / area · mapUrl: paste a Google Maps link, or leave "" and
+  // the Directions button searches venue + address + city · dress: what to wear · note: anything else
   events: [
-    { name: "Haldi", when: "23 Jan · 11 AM", where: "Gopalpur-on-Sea" },
-    { name: "Sangeet", when: "23 Jan · 7 PM", where: "Gopalpur-on-Sea" },
-    { name: "Wedding", when: "24 Jan", where: "Berhampur" },
-    { name: "Reception", when: "27 Jan", where: "Bhubaneswar" }
+    { name: "Haldi", date: "2027-01-23", time: "11:00", hours: 3, city: "Gopalpur-on-Sea",
+      venue: "", address: "", mapUrl: "", dress: "", note: "" },
+    { name: "Sangeet", date: "2027-01-23", time: "19:00", hours: 4, city: "Gopalpur-on-Sea",
+      venue: "", address: "", mapUrl: "", dress: "", note: "" },
+    { name: "Wedding", date: "2027-01-24", time: "", hours: 6, city: "Berhampur", main: true,
+      venue: "", address: "", mapUrl: "", dress: "", note: "" },
+    { name: "Reception", date: "2027-01-27", time: "", hours: 4, city: "Bhubaneswar",
+      venue: "", address: "", mapUrl: "", dress: "", note: "" }
   ],
 
   photos: {
