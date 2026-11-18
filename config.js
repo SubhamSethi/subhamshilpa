@@ -20,7 +20,7 @@ window.REGISTRY = {
   },
 
   // Google Apps Script web app URL (ends in /exec). See README > Live backend.
-  apiUrl: "",
+  apiUrl: "https://script.google.com/macros/s/AKfycbxRVf67UN0RbpI1e7GiCeu3jHJVNL6JeJ2l3WNqVRJylgsBdMX5AIue7Fr2mWS1F9Q21w/exec",
 
   // The public link you hand out. The share section builds every deep link (#japan, #gift-microwave…) from this.
   // Also published as a Claude artifact at https://claude.ai/artifact/QuZP7btSChxFPtLxkFKCve
