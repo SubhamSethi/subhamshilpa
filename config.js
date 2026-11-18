@@ -10,6 +10,7 @@ window.REGISTRY = {
     tag: "#Sushi",
     tagline: "Subham + Shilpa = Sushi. Two people, rolled into one.",
     date: "2027-01-24",            // wedding day, drives the countdown
+    time: "16:15",                 // pāṇigrahaṇa muhurat, 4:15 to 4:39 PM
     dateLabel: "24 Jan 2027 · Berhampur",
     instagram: "sushi.romas"       // leave "" to hide
   },
@@ -20,9 +21,6 @@ window.REGISTRY = {
   },
 
   // Google Apps Script web app URL (ends in /exec). See README > Live backend.
-  // RSVP form guests fill in (opens in a new tab)
-  rsvpUrl: "https://docs.google.com/forms/d/13id24eM5owCogo3G8WsPw5lbcpI44g0Odf-yIfit81U/viewform",
-
   apiUrl: "https://script.google.com/macros/s/AKfycbxRVf67UN0RbpI1e7GiCeu3jHJVNL6JeJ2l3WNqVRJylgsBdMX5AIue7Fr2mWS1F9Q21w/exec",
 
   // The public link you hand out. The share section builds every deep link (#japan, #gift-microwave…) from this.
@@ -36,11 +34,11 @@ window.REGISTRY = {
   // venue: the hall, hotel or home · address: street / area · mapUrl: paste a Google Maps link, or leave "" and
   // the Directions button searches venue + address + city · dress: what to wear · note: anything else
   events: [
-    { name: "Haldi", date: "2027-01-23", time: "11:00", hours: 3, city: "Gopalpur-on-Sea",
+    { name: "Haldi", date: "2027-01-23", time: "11:00", hours: 3, city: "Berhampur",
       venue: "", address: "", mapUrl: "", dress: "", note: "" },
-    { name: "Sangeet", date: "2027-01-23", time: "19:00", hours: 4, city: "Gopalpur-on-Sea",
+    { name: "Sangeet", date: "2027-01-23", time: "19:00", hours: 4, city: "Berhampur",
       venue: "", address: "", mapUrl: "", dress: "", note: "" },
-    { name: "Wedding", date: "2027-01-24", time: "", hours: 6, city: "Berhampur", main: true,
+    { name: "Wedding", date: "2027-01-24", time: "16:15", hours: 6, city: "Berhampur", main: true,
       venue: "", address: "", mapUrl: "", dress: "", note: "" },
     { name: "Reception", date: "2027-01-27", time: "19:00", hours: 4, city: "Bhubaneswar",
       venue: "", address: "", mapUrl: "", dress: "", note: "" }

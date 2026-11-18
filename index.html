@@ -524,7 +524,6 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border-radius:50%;bac
 .travel b{font-size:18px;font-weight:600}
 .travel p{margin:0;color:var(--muted);font-size:14.5px}
 @media (max-width:760px){.travel{grid-template-columns:1fr}}
-.rsvp-cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px 16px;margin-top:24px;color:var(--muted);font-size:15px;text-align:center}
 .wed-foot{text-align:center;margin-top:26px;color:var(--muted);font-size:15px}
 
 /* ---------- FAQ + events ---------- */
@@ -931,14 +930,14 @@ function render(){
   </div></header>
 
   <section class="chapter" id="wedding"><div class="wrap">
-    <div class="ch-head rv"><span class="eyebrow hud" data-scramble>The celebrations · January 2027</span><h2>Come celebrate with us.</h2><p>Haldi and sangeet by the sea in Gopalpur, the wedding in Berhampur, and the reception in Bhubaneswar.</p></div>
+    <div class="ch-head rv"><span class="eyebrow hud" data-scramble>The celebrations · January 2027</span><h2>Come celebrate with us.</h2><p>Haldi, sangeet and the wedding in Berhampur, then the reception in Bhubaneswar.</p></div>
     <div class="tl">${eventsHTML()}</div>
     <div class="travel rv">
-      <div><small>Flying in</small><b>Bhubaneswar (BBI)</b><p>The nearest big airport, and where the reception is.</p></div>
-      <div><small>Bhubaneswar to Berhampur</small><b>About 3.5 hours by road</b><p>Need a car? Say so on the RSVP and we'll send one. It's on us.</p></div>
-      <div><small>Staying over</small><b>We'll sort your room</b><p>Coming from out of town? Tell us on the RSVP and we'll arrange a stay.</p></div>
+      <div><small>Flying in</small><b>Bhubaneswar (BBI)</b><p>The nearest big airport, and the city where the reception is.</p></div>
+      <div><small>Bhubaneswar to Berhampur</small><b>About 3.5 hours by road</b><p>Need a car from Bhubaneswar? Message us and we'll send one. It's on us.</p></div>
+      <div><small>Staying over</small><b>We'll sort your room</b><p>Coming from out of town? Message us and we'll arrange a stay.</p></div>
     </div>
-    ${C.rsvpUrl?`<div class="rsvp-cta rv"><a class="pill" href="${esc(C.rsvpUrl)}" target="_blank" rel="noopener">RSVP</a><span>Takes a minute. Tell us which celebrations you're coming to.</span></div>`:''}
+
   </div></section>
 
   <section class="chapter" id="ways"><div class="wrap">
@@ -1095,7 +1094,7 @@ function countUp(el){
 
 /* Countdown */
 function tick(){
-  const ms = new Date(C.couple.date+'T00:00:00+05:30') - new Date();
+  const ms = new Date(C.couple.date+'T'+(C.couple.time||'00:00')+':00+05:30') - new Date();
   const d=$('cd-d'); if(!d) return;
   if(ms<=0){ $('cd').innerHTML='<div><b>Married!</b></div>'; return; }
   const s=Math.floor(ms/1000), pad=n=>String(n).padStart(2,'0');
