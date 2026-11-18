@@ -657,7 +657,7 @@ function applyLive(d){
 let lastSig = '';
 async function fetchState(){
   if(!C.apiUrl) return false;
-  const ctrl = new AbortController(); const t = setTimeout(()=>ctrl.abort(), 12000);
+  const ctrl = new AbortController(); const t = setTimeout(()=>ctrl.abort(), 20000);
   try{ const r = await fetch(C.apiUrl,{signal:ctrl.signal,cache:'no-store'}); applyLive(await r.json()); S.failed=false; return true; }
   catch(e){ S.failed = true; return false; }
   finally{ clearTimeout(t); S.loading=false; }
@@ -1404,7 +1404,7 @@ let taps=0, tapT=0;
 $('brand').addEventListener('click',e=>{ const now=Date.now(); taps = now-tapT<600 ? taps+1 : 1; tapT=now; if(taps>=5){ e.preventDefault(); taps=0; sushiRain(); } });
 
 render(); tick(); lastSig=sig(); sky(); route();
-if(C.apiUrl){ fetchState().then(()=>{ refresh(); if(location.hash.startsWith('#gift-')){ routed=''; route(); } }); setInterval(()=>{ if(!$('scrim').classList.contains('open')) fetchState().then(refresh); },60000); }
+if(C.apiUrl){ fetchState().then(ok=>ok?ok:new Promise(r=>setTimeout(r,2500)).then(fetchState)).then(()=>{ refresh(); if(location.hash.startsWith('#gift-')){ routed=''; route(); } }); setInterval(()=>{ if(!$('scrim').classList.contains('open')) fetchState().then(refresh); },60000); }
 })();
 </script>
 </body>
