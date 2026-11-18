@@ -65,17 +65,17 @@ window.REGISTRY = {
   funds: {
     home: {
       title: "Our first home",
-      blurb: "A sofa big enough for two naps, and a kitchen where we can argue about how much masala is too much.",
+      blurb: "We're saving up to buy a place of our own: somewhere with a sofa big enough for two naps, and a kitchen where we can argue about how much masala is too much.",
       target: 300000,
       photo: "photos/cottage.jpg",
       photoCaption: "The practice run",
       chips: [
-        [501, "a doormat that says #Sushi"],
-        [1101, "the doorbell"],
-        [2101, "curtains for one window"],
-        [5101, "a bookshelf"],
-        [11000, "the griha pravesh puja"],
-        [21000, "most of the fridge"]
+        [501, "a few bricks"],
+        [1101, "a bag of cement, and then some"],
+        [2101, "a little corner of the balcony"],
+        [5101, "about a square foot of our home"],
+        [11000, "two square feet"],
+        [21000, "four square feet, roughly where the sofa goes"]
       ]
     },
     honeymoon: {

@@ -739,7 +739,7 @@ function vote(){ const b=S.funds.honeymoon.byOption||{}; const a=b[O1.id]||0, c=
 function stage(list,p){ let s=list[0][1]; list.forEach(x=>{ if(p>=x[0]) s=x[1]; }); return s; }
 function toast(t){ const el=$('toast'); el.textContent=t; el.classList.add('show'); clearTimeout(toast.t); toast.t=setTimeout(()=>el.classList.remove('show'),2600); }
 function itemLabel(w){ if(w.kind==='note') return ''; if(w.kind==='gift'){ const g=S.gifts.find(x=>x.id===w.item); return g?g.name:'A gift'; } if(w.item==='honeymoon'){ const o=optById(w.option); return o?'Team '+o.name:'The honeymoon'; } return (C.funds[w.item]||{}).title||''; }
-const HOME_STAGES=[[0,'An empty plot, waiting for the first brick'],[1,'The foundation is going in'],[25,'Walls are coming up'],[50,'The roof is on'],[75,'Painting and furnishing'],[100,'Griha pravesh. Housewarming at ours!']];
+const HOME_STAGES=[[0,'Saving up for a place of our own'],[1,'The first bricks are in'],[25,'A quarter of the way to the keys'],[50,'Halfway there'],[75,'Nearly there'],[100,'Keys in hand. Griha pravesh at ours!']];
 const TRIP_STAGES=[[0,'Passports still in the drawer'],[1,'Bags are packed'],[25,'Checked in at '+C.homeAirport],[50,'Wheels up'],[75,'Seatbelt sign on, landing soon'],[100,'Landed. Honeymoon mode on']];
 
 /* ---------- Stickers ---------- */
@@ -1019,8 +1019,8 @@ function render(){
       </a>
       <a class="tile t-home rv tilt ring-border" href="#home">${SHINE}
         <span class="tag">Our first home</span>
-        <h3>Help us set<br>up home.</h3>
-        <p>Every bit goes into the place we're building together.</p>
+        <h3>Help us buy<br>our first home.</h3>
+        <p>We're saving up for a place of our own. Every bit brings us closer to the keys.</p>
         ${raisedLine(hf)}
         <span class="more">Add a brick</span>
       </a>
@@ -1297,7 +1297,7 @@ function openChooser(){
     ${open.length?`<div class="ch-main"><h4 class="ch-h">From our wishlist</h4><div class="cg-grid">${cards}</div></div>`:''}
     <div class="ch-side"><h4 class="ch-h">Or contribute towards</h4>
     <div class="cf-grid">
-      <button type="button" class="cf" data-fund="home" style="--img:url('${esc(HOME.photo)}')"><span class="cf-in"><small>Our first home</small><b>Help us set up home</b><span>For the place we're building together.</span>${raisedLine(S.funds.home).replace('<p class="raised">','<span class="raised">').replace('</p>','</span>')}<em>Add a brick →</em></span></button>
+      <button type="button" class="cf" data-fund="home" style="--img:url('${esc(HOME.photo)}')"><span class="cf-in"><small>Our first home</small><b>Help us buy our first home</b><span>Every bit brings us closer to the keys.</span>${raisedLine(S.funds.home).replace('<p class="raised">','<span class="raised">').replace('</p>','</span>')}<em>Add a brick →</em></span></button>
       <button type="button" class="cf trip" data-fund="honeymoon" style="--a:${O1.color};--b:${O2.color}"><span class="cf-in"><small>Our honeymoon</small><b>${esc(O1.name)} or ${esc(O2.name)}</b><span>We haven't picked yet. It'll be one of these two.</span>${raisedLine(S.funds.honeymoon).replace('<p class="raised">','<span class="raised">').replace('</p>','</span>')}<em>Contribute →</em></span></button>
     </div></div>
     </div>
