@@ -46,7 +46,13 @@ window.REGISTRY = {
   photos: {
     hero: "photos/traditional.jpg",
     heroBack: ["photos/dinner.jpg", "photos/jerseys.jpg"],
+    // The photo strip, oldest first. wide: width ÷ height for landscape photos, so they get a wider frame. when: optional year label.
     story: [
+      { src: "photos/early-1-selfie.jpg", caption: "The early days", wide: 1.33 },
+      { src: "photos/early-2-river.jpg", caption: "Feet in the river" },
+      { src: "photos/early-3-dressed-up.jpg", caption: "All dressed up" },
+      { src: "photos/early-4-watchtower.jpg", caption: "On top of the world", wide: 1.5 },
+      { src: "photos/early-5-rafting.jpg", caption: "White water, big grins", wide: 1.78 },
       { src: "photos/traditional.jpg", caption: "Dressed up, cracking up" },
       { src: "photos/dinner.jpg", caption: "Candles and heliconias" },
       { src: "photos/hills-wide.jpg", caption: "Hill-station mode" },

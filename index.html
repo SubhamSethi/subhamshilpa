@@ -460,6 +460,8 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border-radius:50%;bac
 .gallery{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 22px 18px;margin:0 -22px;scrollbar-width:none}
 .gallery::-webkit-scrollbar{display:none}
 .gallery figure{flex:0 0 min(300px,72vw);margin:0;scroll-snap-align:center}
+.gallery figure.wide{flex-basis:min(calc(min(300px,72vw) * 4 / 3 * var(--r)),88vw)}
+.gallery figure.wide img{aspect-ratio:var(--r)}
 .gallery .ph{border-radius:24px;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.12),0 30px 60px -30px rgba(0,0,0,.9);position:relative}
 .gallery img{width:100%;aspect-ratio:3/4;object-fit:cover;background:var(--panel-solid);transition:transform 1s var(--ease),filter 1s var(--ease);filter:saturate(.9)}
 .gallery figure:hover img{transform:scale(1.06);filter:saturate(1.15)}
@@ -996,7 +998,7 @@ function render(){
 
   <section class="chapter tight" id="story"><div class="wrap">
     <div class="ch-head rv"><span class="eyebrow hud" data-scramble>Us, so far</span><h2>A few photos from the road to the mandap.</h2></div>
-    <div class="rail-wrap rv"><div class="gallery" id="gallery">${P.story.map(st=>`<figure><div class="ph"><img src="${esc(st.src)}" alt="${esc(st.caption||'Subham and Shilpa')}" loading="lazy"></div><figcaption>${st.when?`<small>${esc(st.when)}</small>`:''}${esc(st.caption||'')}</figcaption></figure>`).join('')}</div>
+    <div class="rail-wrap rv"><div class="gallery" id="gallery">${P.story.map(st=>`<figure${st.wide?` class="wide" style="--r:${+st.wide||1.33}"`:''}><div class="ph"><img src="${esc(st.src)}" alt="${esc(st.caption||'Subham and Shilpa')}" loading="lazy"></div><figcaption>${st.when?`<small>${esc(st.when)}</small>`:''}${esc(st.caption||'')}</figcaption></figure>`).join('')}</div>
     <div class="rail-btns"><button class="rbtn" type="button" data-rail="-1" data-target="gallery" aria-label="Previous photo">‹</button><button class="rbtn" type="button" data-rail="1" data-target="gallery" aria-label="Next photo">›</button></div></div>
   </div></section>
 
