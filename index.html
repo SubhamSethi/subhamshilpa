@@ -446,6 +446,7 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border-radius:50%;bac
 .gallery img{width:100%;aspect-ratio:3/4;object-fit:cover;background:var(--panel-solid);transition:transform 1s var(--ease),filter 1s var(--ease);filter:saturate(.9)}
 .gallery figure:hover img{transform:scale(1.06);filter:saturate(1.15)}
 .gallery figcaption{font-family:var(--serif);font-style:italic;font-size:22px;margin-top:14px;text-align:center}
+.gallery figcaption small{display:block;font-family:var(--mono);font-style:normal;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
 
 /* ---------- Wall ---------- */
 .wall{columns:3 260px;column-gap:16px}
@@ -980,13 +981,9 @@ function render(){
   </div></section>
 
   <section class="chapter tight" id="story"><div class="wrap">
-    <div class="ch-head rv"><span class="eyebrow hud" data-scramble>Us, so far</span><h2>From the first hello to the mandap.</h2></div>
-    <div class="show rv" id="show" role="region" aria-roledescription="slideshow" aria-label="Photos of us over the years">
-      ${P.story.map((st,i)=>`<figure class="slide${i%2?' alt':''}" aria-hidden="true"><div class="bg" style="background-image:url('${esc(st.src)}')"></div><img src="${esc(st.src)}" alt="${esc(st.caption||'Subham and Shilpa')}" ${i>1?'loading="lazy"':''}><figcaption>${st.when?`<small>${esc(st.when)}</small>`:''}<span>${esc(st.caption||'')}</span></figcaption></figure>`).join('')}
-      <span class="show-count num" id="showCount"></span>
-      <button class="show-nav prev" type="button" data-show="-1" aria-label="Previous photo">‹</button><button class="show-nav next" type="button" data-show="1" aria-label="Next photo">›</button>
-      <div class="show-bars">${P.story.map((_,i)=>`<button type="button" data-show-to="${i}" aria-label="Photo ${i+1}"><i></i></button>`).join('')}</div>
-    </div>
+    <div class="ch-head rv"><span class="eyebrow hud" data-scramble>Us, so far</span><h2>A few photos from the road to the mandap.</h2></div>
+    <div class="rail-wrap rv"><div class="gallery" id="gallery">${P.story.map(st=>`<figure><div class="ph"><img src="${esc(st.src)}" alt="${esc(st.caption||'Subham and Shilpa')}" loading="lazy"></div><figcaption>${st.when?`<small>${esc(st.when)}</small>`:''}${esc(st.caption||'')}</figcaption></figure>`).join('')}</div>
+    <div class="rail-btns"><button class="rbtn" type="button" data-rail="-1" data-target="gallery" aria-label="Previous photo">‹</button><button class="rbtn" type="button" data-rail="1" data-target="gallery" aria-label="Next photo">›</button></div></div>
   </div></section>
 
   <section class="chapter tight" id="wall"><div class="wrap">
