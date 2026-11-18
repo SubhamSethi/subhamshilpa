@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Subham + Shilpa Registry</title>
-<meta name="description" content="Subham and Shilpa are getting married on 24 January 2027. Help build our first home, send us to Japan or the Masai Mara, or pick a gift.">
+<meta name="description" content="Subham and Shilpa are getting married on 24 January 2027. Come celebrate with us in Odisha. Wedding dates, venues, and a small wishlist for anyone who asked.">
 <meta property="og:title" content="Subham & Shilpa · #Sushi">
-<meta property="og:description" content="Our wedding registry. Build our first home, fly us to Japan or the Masai Mara, or grab a gift off the belt.">
+<meta property="og:description" content="Wedding dates, venues and directions, plus a small wishlist for anyone who asked.">
 <meta property="og:image" content="https://subhamshilpa.com/photos/traditional.jpg">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
@@ -316,6 +316,7 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border-radius:50%;bac
 .gift-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px;margin-top:22px}
 .gift-grid .empty{grid-column:1/-1}
 .gift-grid .gift{flex:none}
+.fund-note{margin:14px 0 0;color:var(--muted);font-size:14px}
 .gift-alt{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;margin-top:26px;color:var(--muted);font-size:15px}
 .fab{position:fixed;right:max(18px,env(safe-area-inset-right));bottom:calc(18px + env(safe-area-inset-bottom));z-index:45;padding:12px 20px;min-height:50px;font-size:15px;transform:translateY(120px);opacity:0;transition:transform .5s var(--spring),opacity .3s,background-position .6s var(--ease),box-shadow .3s}
 .fab.show{transform:none;opacity:1}
@@ -506,18 +507,17 @@ footer .names{font-size:clamp(34px,6vw,60px);margin:0 0 12px;color:var(--ink)}
 <nav class="nav" aria-label="Sections"><div class="wrap">
   <a class="brand" href="#top" id="brand"><span class="dot"></span>#<i>Sushi</i></a>
   <a class="l" href="#wedding">Wedding</a>
-  <a class="l" href="#gifts">Gift list</a>
+  <a class="l" href="#gifts">Wishlist</a>
   <a class="l" href="#home">Home fund</a>
   <a class="l" href="#honeymoon">Honeymoon</a>
   <a class="l" href="#wall">Wall</a>
   <a class="l" href="#faq">FAQ</a>
-  <a class="l" href="#share">Share</a>
-  <button class="pill sm" type="button" data-chooser>Give a gift</button>
+  <button class="pill sm" type="button" data-chooser>Send a gift</button>
 </div></nav>
 <noscript><p style="padding:24px;text-align:center">This registry needs JavaScript to show live totals and UPI payment details.</p></noscript>
 <div id="root"></div>
 <div class="scrim" id="scrim" role="dialog" aria-modal="true" aria-labelledby="sheet-title"><div class="sheet" id="sheet"></div></div>
-<button class="fab pill" type="button" id="fab" data-chooser aria-label="Give a gift"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="3" y="9" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 13h18M12 9v12M12 9C9 9 7 7.5 7 6s1.3-2.5 2.7-2C11 4.5 12 9 12 9zm0 0c3 0 5-1.5 5-3s-1.3-2.5-2.7-2C13 4.5 12 9 12 9z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Give a gift</button>
+<button class="fab pill" type="button" id="fab" data-chooser aria-label="Send a gift"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="3" y="9" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 13h18M12 9v12M12 9C9 9 7 7.5 7 6s1.3-2.5 2.7-2C11 4.5 12 9 12 9zm0 0c3 0 5-1.5 5-3s-1.3-2.5-2.7-2C13 4.5 12 9 12 9z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Send a gift</button>
 <canvas id="confetti"></canvas>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script src="config.js"></script>
@@ -655,7 +655,7 @@ function eventsHTML(){
         <div class="ev-head"><h3>${esc(e.name)}</h3>${e.main?'<span class="flag">The big day</span>':''}${isNext&&!e.main?'<span class="flag soft">Up next</span>':''}${past?'<span class="flag soft">Done</span>':''}</div>
         <div class="ev-meta">${when?`<span><i>Time</i>${esc(when)}</span>`:''}<span><i>Where</i>${esc(place?place+', '+e.city:e.city)}</span>${e.dress?`<span><i>Wear</i>${esc(e.dress)}</span>`:''}</div>
         ${e.note?`<p class="ev-note">${esc(e.note)}</p>`:''}
-        ${!e.time||!e.venue?`<div class="ev-tbc">${[!e.time?'time':'',!e.venue?'venue':''].filter(Boolean).join(' and ')} coming soon</div>`:''}
+        ${!e.time||!e.venue?`<div class="ev-tbc">${!e.venue&&!e.time?'Venue and time':!e.venue?'Venue':'Time'} to follow</div>`:''}
         ${!past&&days>0?`<div class="ev-count num">${days===1?'Tomorrow':'In '+days+' days'}</div>`:''}
         <div class="row"><a class="pill sm ghost" href="${esc(maps(e))}" target="_blank" rel="noopener">Directions</a><a class="pill sm ghost" href="${esc(gcal(e))}" target="_blank" rel="noopener">Add to Google Calendar</a></div>
       </div></article>`; }).join('');
@@ -666,18 +666,11 @@ function shareBase(){ if(C.shareUrl) return C.shareUrl.replace(/#.*$/,''); retur
 function shareLinks(){
   const b=shareBase(), t=C.couple.tag;
   const L=[
-    {h:'', name:'The whole registry', what:'Opens at the top with the countdown.', msg:`${C.couple.a} & ${C.couple.b} are getting married! Here's our ${t} registry:`},
-    {h:'wedding', name:'Wedding details', what:'Dates, times, venues, directions and calendar invites.', msg:`${C.couple.a} & ${C.couple.b}'s wedding: dates, venues and directions:`},
-    {h:'home', name:'Our first home', what:'Jumps to the home fund. Every rupee lays a brick.', msg:'Help us build our first home, one brick at a time:'},
-    {h:'give', name:'Give a gift', what:'Opens the gift picker: the list plus both funds.', msg:`Want to send ${C.couple.a} & ${C.couple.b} a wedding gift? Pick one here:`},
-    {h:'add-brick', name:'Add a brick', what:'Opens the payment sheet for the home fund right away.', msg:'Add a brick to our first home:'},
-    {h:'honeymoon', name:'The honeymoon', what:`We're off to ${O1.name} or ${O2.name}. Shows the trip fund.`, msg:`Help us fly to ${O1.name} or ${O2.name} for our honeymoon:`},
-    {h:'fly-us', name:'Fly us away', what:'Opens the honeymoon payment sheet right away.', msg:'Chip in for our honeymoon:'},
-    {h:'gifts', name:'Gift list', what:'Every gift still needed. Covered ones disappear.', msg:'Our wedding gift list:'}
+    {h:'', name:'The whole site', what:'Opens at the top, with the countdown and wedding details.', msg:`We're getting married! Dates, venues and everything else are here:`},
+    {h:'wedding', name:'Wedding details', what:'Dates, venues, directions and calendar invites.', msg:`Wedding dates, venues and directions:`},
+    {h:'give', name:'Gifts', what:'Opens the gift options straight away. Good for people who asked.', msg:`A few of you asked about gifts, so we made a short list. No pressure at all:`},
+    {h:'gifts', name:'Wishlist', what:'Jumps to the wishlist.', msg:`Since you asked, here's our wishlist:`}
   ];
-  S.gifts.filter(g=>g.remaining>0).forEach(g=>L.push({h:'gift-'+slug(g.id), name:g.name, what:'Scrolls to this gift and highlights it.', msg:`Want to gift us the ${g.name}?`}));
-  L.push({h:'wall', name:'Sticker wall', what:'Everyone who chipped in, with their sushi.', msg:'See who has stamped our sticker wall:'});
-  L.push({h:'faq', name:'How it works', what:'UPI, fees and splitting gifts.', msg:'How our registry works:'});
   return L.map(l=>({...l, url: l.h ? b+'#'+l.h : b}));
 }
 let routed='';
@@ -688,6 +681,7 @@ function route(){
   if(h===O1.id || h===O2.id || h==='fly-us') return go('honeymoon', ()=>startFund('honeymoon'));
   if(h==='add-brick') return go('home', ()=>startFund('home'));
   if(h==='give'){ setTimeout(openChooser,300); return; }
+  if(h==='share'){ render(); return go('share'); }
   if(h.startsWith('gift-')){ const card=$(h); if(!card) return go('gifts');
     return go('gifts', ()=>{ card.scrollIntoView({behavior:RM?'auto':'smooth',block:'center'}); card.classList.remove('ping'); void card.offsetWidth; card.classList.add('ping'); }); }
   if($(h)) go(h);
@@ -702,7 +696,6 @@ function render(){
   const giftsOpen=S.gifts.filter(g=>g.remaining>0), giftsDone=S.gifts.filter(g=>g.remaining<=0);
   const totalRaised = Object.values(S.funds).reduce((a,f)=>a+f.raised,0) + S.gifts.reduce((a,g)=>a+(g.covered||0),0);
   const givers = new Set(S.wall.map(w=>String(w.name).trim().toLowerCase())).size;
-  const status = !C.apiUrl ? '' : S.loading ? '<span class="status off"><i></i>Loading live totals…</span>' : S.failed ? '<span class="status off"><i></i>Live totals are offline right now</span>' : '<span class="status"><i></i>Live. Totals update for everyone</span>';
   const R = 36, CIRC = 2*Math.PI*R;
   const optCard = (o, scene) => `<article class="opt-card rv tilt ring-border" id="dest-${o.id}" style="--c:${o.color}">${SHINE}
       ${scene}
@@ -711,29 +704,29 @@ function render(){
     </article>`;
   const giftCards = giftsOpen.map(g=>{
     const t=tier(g.price), total=g.price*g.qty, gp=Math.min(100,(g.covered||0)/total*100), unitsLeft=Math.ceil(g.remaining/g.price), canWhole=g.remaining>=g.price;
-    const state = g.qty>1 ? `${unitsLeft} of ${g.qty} still needed` : g.covered>0 ? `${rs(g.remaining)} to go` : 'Up for grabs';
+    const state = g.qty>1 ? `${unitsLeft} of ${g.qty} still on our list` : g.covered>0 ? `Friends are sharing this one` : 'On our wishlist';
     return `<article class="gift tilt" id="gift-${slug(g.id)}" style="--c:${t.c};--g:${t.g}">${SHINE}
       <div class="plate num">${short(g.price)}</div>
       <span class="state">${state}</span>
       <h3>${esc(g.name)}</h3>
       ${g.note?`<p>${esc(g.note)}</p>`:''}
-      ${g.covered>0?`<div class="bar"><span style="transform:scaleX(${(gp/100).toFixed(3)})"></span></div><p class="num">${rs(g.covered)} of ${rs(total)} from ${esc((g.givers||[]).slice(0,3).join(', '))}${(g.givers||[]).length>3?' and friends':''}</p>`:''}
-      ${g.link?`<a class="link" href="${esc(g.link)}" target="_blank" rel="noopener">See the one we like ›</a>`:''}
+      ${g.covered>0?`<div class="bar"><span style="transform:scaleX(${(gp/100).toFixed(3)})"></span></div><p>Shared by ${esc((g.givers||[]).slice(0,3).join(', '))}${(g.givers||[]).length>3?' and others':''}</p>`:''}
+      ${g.link?`<a class="link" href="${esc(g.link)}" target="_blank" rel="noopener">See the one we have in mind</a>`:''}
       <div class="acts">
-        ${canWhole?`<button class="pill" type="button" data-gift="${esc(g.id)}" data-mode="whole">Gift it · ${short(g.price)}</button>`:''}
-        <button class="pill ${canWhole?'ghost':''}" type="button" data-gift="${esc(g.id)}" data-mode="chip">Chip in</button>
-        ${canWhole&&C.apiUrl?`<button class="pill ghost" type="button" data-gift="${esc(g.id)}" data-mode="bring">I'll bring it</button>`:''}
+        ${canWhole?`<button class="pill" type="button" data-gift="${esc(g.id)}" data-mode="whole">Gift this</button>`:''}
+        <button class="pill ${canWhole?'ghost':''}" type="button" data-gift="${esc(g.id)}" data-mode="chip">Share with friends</button>
+        ${canWhole&&C.apiUrl?`<button class="pill ghost" type="button" data-gift="${esc(g.id)}" data-mode="bring">I'll buy and bring it</button>`:''}
       </div></article>`;
-  }).join('') || '<div class="empty" style="flex:1">Everything on the belt is taken. You lot are amazing! The funds are still open.</div>';
+  }).join('') || '<div class="empty">Everything on our list has been gifted. Thank you, all of you.</div>';
 
   $('root').innerHTML = `
   <header class="hero${S.renders===1?' boot':''}" id="top"><div class="wrap">
-    <div class="eyebrow hud" data-scramble>24 January 2027 · Berhampur, Odisha</div>
+    <div class="eyebrow hud" data-scramble>${esc(c.tag)} · 24 January 2027 · Berhampur</div>
     <h1 class="names" aria-label="${esc(c.a)} and ${esc(c.b)}"><span aria-hidden="true" style="display:contents">${splitWord(c.a,0)}<i>&amp;</i>${splitWord(c.b,c.a.length+1)}</span></h1>
-    <p class="lede">Two people, rolled into one. Welcome to the <b>${esc(c.tag)}</b> registry.</p>
+    <p class="lede">We're getting married, and we'd love you to be there.</p>
     <div class="countdown num" id="cd" aria-live="off"><div><b id="cd-d">00</b><small>Days</small></div><div><b id="cd-h">00</b><small>Hours</small></div><div><b id="cd-m">00</b><small>Minutes</small></div><div><b id="cd-s">00</b><small>Seconds</small></div></div>
     <p class="cd-label">until we tie the knot</p>
-    <div class="ctas"><button class="pill" type="button" data-chooser>Give a gift</button><a class="pill ghost" href="#wedding">Wedding details</a></div>
+    <div class="ctas"><a class="pill" href="#wedding">Wedding details</a><button class="pill ghost" type="button" data-chooser>Send a gift</button></div>
     <div class="fan" id="fan"><div class="orbit" aria-hidden="true"><span></span></div>
       <figure class="f2"><img src="${esc(P.heroBack[0])}" alt="Subham and Shilpa at a candlelit dinner"></figure>
       <figure class="f3"><img src="${esc(P.heroBack[1])}" alt="Subham and Shilpa in matching jerseys"></figure>
@@ -742,78 +735,55 @@ function render(){
   </div></header>
 
   <section class="chapter" id="wedding"><div class="wrap">
-    <div class="ch-head rv"><span class="eyebrow hud" data-scramble>The celebrations · Odisha</span><h2>Four days, three cities, one very happy couple.</h2><p>From turmeric by the sea in Gopalpur to the wedding in Berhampur and the reception in Bhubaneswar. Here's where to be and when.</p></div>
+    <div class="ch-head rv"><span class="eyebrow hud" data-scramble>The celebrations · January 2027</span><h2>Come celebrate with us.</h2><p>Haldi and sangeet by the sea in Gopalpur, the wedding in Berhampur, and the reception in Bhubaneswar.</p></div>
     <div class="tl">${eventsHTML()}</div>
-    <p class="wed-foot rv">Coming from out of town? Message us and we'll help with stays and travel.</p>
+    <p class="wed-foot rv">Coming from out of town? Message either of us and we'll help with stays and travel.</p>
   </div></section>
 
   <section class="chapter" id="ways"><div class="wrap">
-    <div class="ch-head rv"><span class="eyebrow hud" data-scramble>Four ways to make us smile</span><h2>Pick how you'd like<br>to celebrate us.</h2>
-      <p>Everything here goes straight to us over UPI. No fees, no middleman, and live totals so you can watch it all come together.</p>${status}</div>
+    <div class="ch-head rv"><span class="eyebrow hud" data-scramble>Gifts</span><h2>Your being there is the gift.</h2>
+      <p>Honestly. But a few of you asked what we'd like, so we put together a short list. If you'd like to send something, here's how.</p></div>
     <div class="bento">
       <a class="tile t-gift rv tilt ring-border" href="#gifts">${SHINE}
-        <span class="tag">Gifts · ${giftsOpen.length} left</span>
-        <h3>Grab a plate<br>off the belt.</h3>
+        <span class="tag">For the new home</span>
+        <h3>Our<br>wishlist.</h3>
         <div class="plates"><i style="--c:#E6DFD8"></i><i style="--c:#FF5E3F;--g:#FF5E3F"></i><i style="--c:#FFC95C;--g:#FFC95C"></i><i style="--c:#2A2440;--g:#A47CFF"></i></div>
-        <p>Gift something whole, split it with friends, or buy it yourself. Once it's covered it vanishes, so nobody doubles up.</p>
-        <span class="more">See the gift list</span>
+        <p>Things we need for the house. Gift one yourself, share it with friends, or buy it and bring it along.</p>
+        <span class="more">See the list</span>
       </a>
       <a class="tile t-home rv tilt ring-border" href="#home">${SHINE}
-        <svg class="ring" viewBox="0 0 84 84" aria-hidden="true"><circle class="bg" cx="42" cy="42" r="${R}"/><circle class="fg" cx="42" cy="42" r="${R}" stroke-dasharray="${CIRC.toFixed(1)}" stroke-dashoffset="${CIRC.toFixed(1)}" data-off="${(CIRC*(1-hp/100)).toFixed(1)}"/><text x="42" y="49" text-anchor="middle" class="num">${Math.round(hp)}%</text></svg>
-        <span class="tag">Fund · Goal ${short(hf.target)}</span>
-        <h3>Build our<br>first home.</h3>
-        <p>Every rupee lays a brick. Watch the house go up from foundation to housewarming.</p>
+        <span class="tag">Our first home</span>
+        <h3>Help us set<br>up home.</h3>
+        <p>Every bit goes into the place we're building together.</p>
         <span class="more">Add a brick</span>
       </a>
       <a class="tile t-trip rv tilt ring-border" href="#honeymoon" style="--c:${O1.color}">${SHINE}
-        <span class="tag">Fund · Goal ${short(tf.target)}</span>
-        <h3>Fly us to ${esc(O1.name)}<br>or ${esc(O2.name)}.</h3>
-        <p>Our honeymoon is one of these two. Every rupee gets us closer to take-off.</p>
-        <div class="split-legend num"><span>${short(tf.raised)} raised</span><span>${Math.round(tp)}%</span></div>
+        <span class="tag">Our honeymoon</span>
+        <h3>Send us to ${esc(O1.name)}<br>or ${esc(O2.name)}.</h3>
+        <p>We haven't picked yet. It'll be one of these two.</p>
         <div class="split"><span style="flex-basis:${tp}%;background:linear-gradient(90deg,${O1.color},${O2.color})"></span></div>
-        <span class="more" style="color:var(--gold)">Chip in for the trip</span>
+        <span class="more" style="color:var(--gold)">Contribute to the trip</span>
       </a>
       <a class="tile t-wall rv tilt ring-border" href="#wall">${SHINE}
-        <span class="tag">After you pay</span>
-        <h3>Stamp the<br>sticker wall.</h3>
+        <span class="tag">From friends and family</span>
+        <h3>Notes on<br>our wall.</h3>
         <div class="stk-row">${['nigiri','maki','tamago','onigiri','heart'].map(k=>STICKERS[k]).join('')}</div>
-        <p>Leave your name, a note and your sushi of choice, so we know exactly who to hug.</p>
-        <span class="more">See the wall</span>
+        <p>When you send a gift, you can leave us a note and pick a sushi sticker. We'll read every one.</p>
+        <span class="more">Read the notes</span>
       </a>
-      <div class="tile t-mini t-raised rv"><span class="tag">Raised so far</span>${totalRaised>0?`<b class="num" data-count="${totalRaised}" data-key="total">${rs(totalRaised)}</b><p>from ${givers} lovely ${givers===1?'person':'people'}</p>`:`<b style="font-size:28px">Be the first</b><p>The first name on the wall gets a shout-out in our speech.</p>`}</div>
-      <div class="tile t-mini rv"><span class="tag">Fees</span><b>0%</b><p>UPI goes straight to our bank.</p></div>
-      <div class="tile t-mini rv"><span class="tag">Works with</span><b style="font-size:24px;line-height:1.2">Any UPI app</b><p>GPay, PhonePe, Paytm, BHIM.</p></div>
     </div>
   </div></section>
 
   <section class="chapter" id="gifts"><div class="wrap">
-    <div class="ch-head rv"><span class="eyebrow hud" data-scramble>Gift list · ${giftsOpen.length} still needed</span><h2>Our gift list.</h2><p>Gift something whole, split it with friends, or buy it yourself and bring it. Once a gift is covered it disappears, so nobody doubles up.</p></div>
-    <div class="legend rv" aria-label="Plate colours show the price">${[1000,8000,20000,40000].map(x=>{const t=tier(x);return `<span><i style="--c:${t.c}"></i>${t.n} · ${t.r}</span>`;}).join('')}</div>
+    <div class="ch-head rv"><span class="eyebrow hud" data-scramble>Our wishlist</span><h2>A few things for our home.</h2><p>Gift one yourself, share it with friends, or buy it and bring it along. Once something has been gifted it comes off the list, so nobody doubles up.</p></div>
     <div class="belt rv" aria-hidden="true"></div>
     <div class="gift-grid" id="rail">${giftCards}</div>
-    <div class="gift-alt rv"><span>Rather give cash towards something bigger?</span><button class="pill sm ghost" type="button" data-fund="home">Our first home</button><button class="pill sm ghost" type="button" data-fund="honeymoon">The honeymoon</button></div>
-    ${giftsDone.length?`<div class="gifted rv"><h3>Already gifted</h3><ul>${giftsDone.map(g=>`<li><s>${esc(g.name)}</s> <span>thanks to ${esc((g.givers||[]).join(', ')||'someone lovely')}</span></li>`).join('')}</ul></div>`:''}
-  </div></section>
-
-  <section class="chapter tight" id="try"><div class="wrap">
-    <div class="ch-head rv"><span class="eyebrow hud" data-scramble>Try it</span><h2>See what your gift becomes.</h2><p>Slide to an amount and see what it adds up to in our home, in Japan and on the Mara.</p></div>
-    <div class="try rv">
-      <div>
-        <div class="try-amt num" id="tryAmt">₹5,101</div>
-        <p class="try-sub" id="trySub">That's 1.7% of our first home.</p>
-        <label class="sr" for="tryRange">Amount</label>
-        <input type="range" id="tryRange" min="0" max="6" step="1" value="3">
-        <div class="ticks num"><span>₹501</span><span>₹5,101</span><span>₹51,000</span></div>
-      </div>
-      <div>
-        <div class="buys" id="tryBuys"></div>
-        <div class="buy-pick"><button class="pill" type="button" id="tryGive">Give this amount</button></div>
-      </div>
-    </div>
+    <div class="gift-alt rv"><span>Would you rather contribute towards something?</span><button class="pill sm ghost" type="button" data-fund="home">Our first home</button><button class="pill sm ghost" type="button" data-fund="honeymoon">The honeymoon</button></div>
+    ${giftsDone.length?`<div class="gifted rv"><h3>Already gifted, thank you</h3><ul>${giftsDone.map(g=>`<li><s>${esc(g.name)}</s> <span>from ${esc((g.givers||[]).join(', ')||'a friend')}</span></li>`).join('')}</ul></div>`:''}
   </div></section>
 
   <section class="chapter" id="home"><div class="wrap">
-    <div class="ch-head rv"><span class="eyebrow hud" data-scramble>Fund one</span><h2>${esc(HOME.title)}.</h2><p>${esc(HOME.blurb)}</p></div>
+    <div class="ch-head rv"><span class="eyebrow hud" data-scramble>Home</span><h2>${esc(HOME.title)}.</h2><p>${esc(HOME.blurb)}</p></div>
     <div class="home-grid">
       <div class="stage-card rv">
         <figure class="polaroid"><img src="${esc(HOME.photo)}" alt="" loading="lazy"><figcaption>${esc(HOME.photoCaption)}</figcaption></figure>
@@ -821,63 +791,53 @@ function render(){
         <div class="stage-line"><i></i>${esc(stage(HOME_STAGES,hp))}</div>
       </div>
       <div class="rv">
-        <div class="stats num">
-          <div><small>Raised</small><b data-count="${hf.raised}" data-key="home">${rs(hf.raised)}</b></div>
-          <div><small>To go</small><b>${rs(Math.max(0,hf.target-hf.raised))}</b></div>
-          <div><small>Goal</small><b>${short(hf.target)}</b></div>
-        </div>
         <div class="bar" role="progressbar" aria-label="Home fund" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(hp)}"><span class="grow-bar" data-x="${(hp/100).toFixed(3)}" style="transform:scaleX(0)"></span></div>
         <div class="chip-list">${HOME.chips.map(ch=>`<button type="button" data-fund="home" data-amt="${ch[0]}"><b>${rs(ch[0])}</b> · ${esc(ch[1])}</button>`).join('')}</div>
         <button class="pill" type="button" data-fund="home">Add a brick</button>
+        <p class="fund-note">The amounts above are just ideas. Any amount is lovely.</p>
       </div>
     </div>
   </div></section>
 
   <section class="night" id="honeymoon"><div class="sun" aria-hidden="true"></div><div class="grid-floor" aria-hidden="true"></div><div class="wrap">
-    <div class="ch-head rv"><span class="eyebrow hud" data-scramble>Fund two · The honeymoon</span><h2>Next stop: ${esc(O1.name)} or ${esc(O2.name)}.</h2><p>${esc(HM.blurb)}</p></div>
+    <div class="ch-head rv"><span class="eyebrow hud" data-scramble>Honeymoon</span><h2>${esc(O1.name)} or ${esc(O2.name)}.</h2><p>${esc(HM.blurb)}</p></div>
     <div class="versus">
       ${optCard(O1, sceneJapan())}
       <div class="vs" aria-hidden="true">OR</div>
       ${optCard(O2, sceneMara())}
     </div>
-    <div class="trip-cta rv"><button class="pill" type="button" data-fund="honeymoon">Chip in for the honeymoon</button></div>
+    <div class="trip-cta rv"><button class="pill" type="button" data-fund="honeymoon">Contribute to our honeymoon</button></div>
     <div class="route rv">${routeSVG(tp)}</div>
     <div class="trip-foot rv">
       <div class="stage-line"><i></i>${esc(stage(TRIP_STAGES,tp))}</div>
-      <div class="stats num">
-        <div><small>Raised</small><b data-count="${tf.raised}" data-key="trip">${rs(tf.raised)}</b></div>
-        <div><small>To go</small><b>${rs(Math.max(0,tf.target-tf.raised))}</b></div>
-        <div><small>Goal</small><b>${short(tf.target)}</b></div>
-      </div>
       <div class="bar"><span class="grow-bar" data-x="${(tp/100).toFixed(3)}" style="transform:scaleX(0)"></span></div>
     </div>
   </div></section>
 
   <section class="chapter tight" id="story"><div class="wrap">
-    <div class="ch-head rv"><span class="eyebrow hud" data-scramble>Us, so far</span><h2>A few frames from the road to the mandap.</h2></div>
+    <div class="ch-head rv"><span class="eyebrow hud" data-scramble>Us, so far</span><h2>A few photos from the road to the mandap.</h2></div>
     <div class="rail-wrap rv"><div class="gallery" id="gallery">${P.story.map(s=>`<figure><div class="ph"><img src="${esc(s.src)}" alt="${esc(s.caption)}" loading="lazy"></div><figcaption>${esc(s.caption)}</figcaption></figure>`).join('')}</div>
     <div class="rail-btns"><button class="rbtn" type="button" data-rail="-1" data-target="gallery" aria-label="Previous photo">‹</button><button class="rbtn" type="button" data-rail="1" data-target="gallery" aria-label="Next photo">›</button></div></div>
   </div></section>
 
   <section class="chapter tight" id="wall"><div class="wrap">
-    <div class="ch-head rv"><span class="eyebrow hud" data-scramble>Sticker wall</span><h2>The people who made our day.</h2><p>Everyone who chipped in, with their sushi of choice. A gold tick means we've spotted the payment.</p></div>
-    ${S.wall.length ? `<div class="wall">${S.wall.map(w=>`<div class="note rv">${STICKERS[w.sticker]||STICKERS.heart}<div><b>${esc(w.name)}${w.verified?'<span class="tick">✓ received</span>':''}</b><small>${esc(itemLabel(w))}${w.mode==='bring'?' · bringing it':''}${w.amount?' · '+rs(w.amount):''}</small>${w.message?`<p>${esc(w.message)}</p>`:''}</div></div>`).join('')}</div>`
-      : `<div class="empty rv">${S.loading?'Fetching the wall…':'No stickers yet. The first name here gets a shout-out in our thank-you speech.'}</div>`}
+    <div class="ch-head rv"><span class="eyebrow hud" data-scramble>Notes</span><h2>From the people we love.</h2><p>Notes from everyone who sent something our way. Thank you.</p></div>
+    ${S.wall.length ? `<div class="wall">${S.wall.map(w=>`<div class="note rv">${STICKERS[w.sticker]||STICKERS.heart}<div><b>${esc(w.name)}</b><small>${esc(itemLabel(w))}${w.mode==='bring'?' · bringing it':''}${w.amount?' · '+rs(w.amount):''}</small>${w.message?`<p>${esc(w.message)}</p>`:''}</div></div>`).join('')}</div>`
+      : `<div class="empty rv">${S.loading?'Loading notes…':'Notes from friends and family will show up here.'}</div>`}
   </div></section>
 
   <section class="chapter tight" id="faq"><div class="wrap">
-    <div class="ch-head rv"><span class="eyebrow hud" data-scramble>Good to know</span><h2>Questions, answered.</h2></div>
+    <div class="ch-head rv"><span class="eyebrow hud" data-scramble>Questions</span><h2>Good to know.</h2></div>
     <div class="faq rv">${C.faq.map((q,i)=>`<details${i===0?' open':''}><summary>${esc(q[0])}</summary><p>${esc(q[1])}</p></details>`).join('')}</div>
   </div></section>
 
-  <section class="chapter tight" id="share"><div class="wrap">
-    <div class="ch-head rv"><span class="eyebrow hud" data-scramble>Share links</span><h2>Send people straight to the good part.</h2><p>Each link opens the registry at one spot. The Add a brick and Fly us away links open the payment sheet straight away.</p></div>
+  ${location.hash==='#share'?`<section class="chapter tight" id="share"><div class="wrap">
+    <div class="ch-head rv"><span class="eyebrow hud" data-scramble>Just for the two of you</span><h2>Links to share.</h2><p>Guests don't see this section. It only opens at #share. Each link opens the site at one spot.</p></div>
     <div class="links">${shareLinks().map(l=>`<div class="lnk tilt rv">${SHINE}<b>${esc(l.name)}</b><p>${esc(l.what)}</p><code>${esc(l.url)}</code><div class="row"><button class="pill sm" type="button" data-copy="${esc(l.url)}">Copy link</button><a class="pill sm ghost" href="https://wa.me/?text=${encodeURIComponent(l.msg+' '+l.url)}" target="_blank" rel="noopener">WhatsApp</a></div></div>`).join('')}</div>
-    <p class="share-note rv">Tip: send each group the link that suits it. Travel buddies get Fly us away, family gets the home fund.</p>
-  </div></section>
+  </div></section>`:''}
 
   <footer><div class="names serif">${esc(c.a)} <i style="color:var(--accent)">&amp;</i> ${esc(c.b)}</div>
-    ${esc(c.tag)} · ${esc(c.dateLabel||c.date)}${c.instagram?`<br>Follow the two of us: <a class="link" href="https://instagram.com/${esc(c.instagram)}" target="_blank" rel="noopener">@${esc(c.instagram)}</a>`:''}</footer>`;
+    ${esc(c.tag)} · ${esc(c.dateLabel||c.date)}${c.instagram?`<br>Say hi on Instagram: <a class="link" href="https://instagram.com/${esc(c.instagram)}" target="_blank" rel="noopener">@${esc(c.instagram)}</a>`:''}</footer>`;
   afterRender();
 }
 
@@ -976,14 +936,14 @@ function setupTry(){
 /* ---------- Gift chooser: one tap from anywhere ---------- */
 function openChooser(){
   const open=S.gifts.filter(g=>g.remaining>0).sort((a,b)=>a.price-b.price);
-  const gl=open.map(g=>{ const t=tier(g.price), canWhole=g.remaining>=g.price; return `<button type="button" class="choose-item" data-gift="${esc(g.id)}" data-mode="${canWhole?'whole':'chip'}" style="--c:${t.c};--g:${t.g}"><span class="mini-plate num">${short(g.price)}</span><span><b>${esc(g.name)}</b><small>${g.covered>0?rs(g.remaining)+' still to go':'Up for grabs'}${g.note?' · '+esc(g.note):''}</small></span><span class="go">${canWhole?'Gift it':'Chip in'} →</span></button>`; }).join('');
-  openSheet(`<h3 id="sheet-title">Give a gift</h3><p class="sub">Pick something from our list, or add to one of our two funds. Everything goes straight to us over UPI.</p>
+  const gl=open.map(g=>{ const t=tier(g.price), canWhole=g.remaining>=g.price; return `<button type="button" class="choose-item" data-gift="${esc(g.id)}" data-mode="${canWhole?'whole':'chip'}" style="--c:${t.c};--g:${t.g}"><span class="mini-plate num">${short(g.price)}</span><span><b>${esc(g.name)}</b><small>${g.covered>0?'Friends are sharing this one':esc(g.note||'')}</small></span><span class="go">${canWhole?'Gift this':'Join in'} →</span></button>`; }).join('');
+  openSheet(`<h3 id="sheet-title">Send a gift</h3><p class="sub">Whatever you choose, thank you. It means a lot to us.</p>
     <div class="choose">
-      ${open.length?`<h4>From our gift list</h4>${gl}`:''}
-      <h4>Or give towards</h4>
-      <button type="button" class="choose-item" data-fund="home">${ICON_HOME}<span><b>${esc(HOME.title)}</b><small>Every rupee lays a brick. ${Math.round(pct(S.funds.home))}% built so far.</small></span><span class="go">Add a brick →</span></button>
-      <button type="button" class="choose-item" data-fund="honeymoon">${iconTrip(O1)}<span><b>The honeymoon</b><small>We're off to ${esc(O1.name)} or ${esc(O2.name)}.</small></span><span class="go">Chip in →</span></button>
-      ${open.length?'<button type="button" class="pill ghost" id="seeList" style="justify-content:center;margin-top:6px">See the full gift list</button>':''}
+      ${open.length?`<h4>From our wishlist</h4>${gl}`:''}
+      <h4>Or contribute towards</h4>
+      <button type="button" class="choose-item" data-fund="home">${ICON_HOME}<span><b>${esc(HOME.title)}</b><small>For the place we're setting up together.</small></span><span class="go">Add a brick →</span></button>
+      <button type="button" class="choose-item" data-fund="honeymoon">${iconTrip(O1)}<span><b>The honeymoon</b><small>We're off to ${esc(O1.name)} or ${esc(O2.name)}.</small></span><span class="go">Contribute →</span></button>
+      ${open.length?'<button type="button" class="pill ghost" id="seeList" style="justify-content:center;margin-top:6px">See the full wishlist</button>':''}
     </div>`);
   const sl=$('seeList'); if(sl) sl.onclick=()=>{ closeSheet(); setTimeout(()=>$('gifts').scrollIntoView({behavior:RM?'auto':'smooth'}),80); };
 }
@@ -1024,18 +984,18 @@ function stepAmount(){
   const isTrip=F.kind==='fund'&&F.id==='honeymoon', g=F.kind==='gift'?giftOf(F.id):null, ch=chipsFor();
   const custom = F.amount && !ch.some(c=>c[0]===F.amount) ? F.amount : '';
   openSheet(`${steps(1)}<h3 id="sheet-title">${esc(title())}</h3>
-    <p class="sub">${g?`Chip in with friends. ${rs(g.remaining)} still to go.`:isTrip?`We're off to ${esc(O1.name)} or ${esc(O2.name)}. Pick an amount and it goes into the trip fund.`:'Pick an amount. Each one comes with a little preview of what it buys.'}</p>
+    <p class="sub">${g?`Share this gift with friends. Put in whatever you like, up to ${rs(g.remaining)}.`:isTrip?`It'll be ${esc(O1.name)} or ${esc(O2.name)}. Choose an amount, or type your own.`:'Choose an amount, or type your own.'}</p>
     <div class="field"><span>Amount</span><div class="amts" id="amts">${ch.map(c=>`<button type="button" class="amt num" data-a="${c[0]}" aria-pressed="${F.amount===c[0]}"><b>${rs(c[0])}</b>${c[1]?`<small>${esc(c[1])}</small>`:''}</button>`).join('')}</div></div>
-    <div class="field"><label for="g-amt">Or your own amount (₹)</label><input id="g-amt" inputmode="numeric" class="num" placeholder="${g?'Up to '+g.remaining:'e.g. 3100'}" autocomplete="off" value="${custom}"></div>
+    <div class="field"><label for="g-amt">Your own amount (₹)</label><input id="g-amt" inputmode="numeric" class="num" placeholder="${g?'Up to '+g.remaining:'e.g. 3100'}" autocomplete="off" value="${custom}"></div>
     <p class="err" id="err1"></p>
     <button class="pill" type="button" id="next1" style="width:100%;justify-content:center;padding:14px">Continue to pay</button>`);
   const sh=$('sheet');
   sh.querySelectorAll('.amt').forEach(b=>b.onclick=()=>{ F.amount=+b.dataset.a; $('g-amt').value=''; sh.querySelectorAll('.amt').forEach(x=>x.setAttribute('aria-pressed',x===b)); });
   $('g-amt').oninput=function(){ const v=parseInt(this.value.replace(/\D/g,''),10); F.amount=v>0?v:null; sh.querySelectorAll('.amt').forEach(x=>x.setAttribute('aria-pressed','false')); };
   $('next1').onclick=()=>{
-    if(!(F.amount>0)) return $('err1').textContent='Pick an amount first.';
-    if(F.amount>100000) return $('err1').textContent='UPI apps usually cap one payment at ₹1,00,000. Split it into two?';
-    if(g && F.amount>g.remaining) return $('err1').textContent=`Only ${rs(g.remaining)} is left on this one.`;
+    if(!(F.amount>0)) return $('err1').textContent='Choose or type an amount first.';
+    if(F.amount>100000) return $('err1').textContent='Most UPI apps allow up to ₹1,00,000 in one payment, so you may need to send it in two parts.';
+    if(g && F.amount>g.remaining) return $('err1').textContent=`${rs(g.remaining)} is all that's left on this one.`;
     stepPay();
   };
 }
@@ -1043,63 +1003,63 @@ const upiNote = () => (C.couple.tag+' '+title()).slice(0,50);
 const upiLink = () => `upi://pay?pa=${encodeURIComponent(C.upi.vpa)}&pn=${encodeURIComponent(C.upi.payee)}&am=${F.amount}&cu=INR&tn=${encodeURIComponent(upiNote())}`;
 async function stepPay(){
   if(F.kind==='gift' && C.apiUrl){
-    openSheet(`<h3 id="sheet-title">Checking the belt…</h3><p class="sub">Making sure this one is still free.</p>`);
+    openSheet(`<h3 id="sheet-title">One moment…</h3><p class="sub">Checking this hasn't just been gifted.</p>`);
     await fetchState(); refresh();
     const g=giftOf(F && F.id);
     if(!F) return;
     if(!g || g.remaining<=0 || (F.mode==='whole' && g.remaining<g.price)){
-      openSheet(`<h3 id="sheet-title">Someone beat you to it!</h3><p class="sub">${esc(g?g.name:'That gift')} was just covered. The funds are always open though.</p><div class="row"><button class="pill grow" type="button" id="toHome">Add a brick instead</button><button class="pill ghost grow" type="button" id="cls">Close</button></div>`);
+      openSheet(`<h3 id="sheet-title">Someone just gifted this</h3><p class="sub">${esc(g?g.name:'That gift')} was gifted a moment ago. You can pick something else, or contribute to our home instead.</p><div class="row"><button class="pill grow" type="button" id="toHome">Contribute to our home</button><button class="pill ghost grow" type="button" id="cls">Close</button></div>`);
       $('toHome').onclick=()=>startFund('home'); $('cls').onclick=closeSheet; return;
     }
     if(F.mode==='chip' && F.amount>g.remaining) F.amount=g.remaining;
   }
-  openSheet(`${steps(2)}<h3 id="sheet-title">Pay with UPI</h3><p class="sub">${esc(title())}</p>
+  openSheet(`${steps(2)}<h3 id="sheet-title">Pay with UPI</h3><p class="sub">${esc(title())}. Once you've paid, come back here and tap the button at the bottom.</p>
     <div class="paybox"><div class="big num">${rs(F.amount)}</div>
       <a class="pill" style="width:100%;justify-content:center;padding:14px" href="${esc(upiLink())}">Open my UPI app</a>
-      <div class="hint">On a laptop, or if the button does nothing, scan this with GPay, PhonePe, Paytm or any bank app.</div>
+      <div class="hint">On a laptop, or if the button doesn't open anything, scan this with GPay, PhonePe, Paytm or your bank's app.</div>
       <div id="qr" aria-label="UPI QR code"></div>
       <div class="vpa">UPI ID <code>${esc(C.upi.vpa)}</code><button class="pill sm ghost" type="button" id="cpv">Copy</button></div>
     </div>
     <div class="row" style="margin-top:16px"><button class="pill ghost" type="button" id="back2">Back</button><button class="pill dark grow" type="button" id="paid">Done, I've paid</button></div>`);
-  try{ new QRCode($('qr'),{text:upiLink(),width:380,height:380,colorDark:'#1D1D1F',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M}); }catch(e){ $('qr').textContent='QR code could not load. Use the UPI ID below.'; }
+  try{ new QRCode($('qr'),{text:upiLink(),width:380,height:380,colorDark:'#1D1D1F',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M}); }catch(e){ $('qr').textContent='The QR code didn\'t load. You can pay to the UPI ID below instead.'; }
   $('cpv').onclick=()=>copy(C.upi.vpa,'UPI ID copied');
   $('back2').onclick=()=> F.mode==='whole' ? closeSheet() : stepAmount();
   $('paid').onclick=()=> C.apiUrl ? stepStamp() : success('',false);
 }
 function stepStamp(){
   const bring=F.mode==='bring'; F.sticker=F.sticker||'maki';
-  openSheet(`${steps(3)}<h3 id="sheet-title">${bring?'Reserve the '+esc(title()):'Stamp the wall'}</h3>
-    <p class="sub">${bring?'We\'ll take it off the belt so nobody else buys the same one.':'Tell us it was you, so we can say thank you properly.'}</p>
+  openSheet(`${steps(3)}<h3 id="sheet-title">${bring?'You\'re bringing the '+esc(title()):'Leave us a note'}</h3>
+    <p class="sub">${bring?'We\'ll take it off the list so nobody else buys the same one.':'So we know who to thank.'}</p>
     <form id="f3" novalidate>
-      <div class="field"><label for="s-name">Your name</label><input id="s-name" autocomplete="name" maxlength="60" required placeholder="So we know who to hug"></div>
-      <div class="field"><span>Pick your sushi</span><div class="stickers">${Object.keys(STICKERS).map(k=>`<button type="button" class="stk" data-stk="${k}" aria-pressed="${F.sticker===k}" aria-label="${k}">${STICKERS[k]}</button>`).join('')}</div></div>
-      <div class="field"><label for="s-msg">A note for us (optional)</label><textarea id="s-msg" maxlength="280" placeholder="Wishes, advice, embarrassing stories…"></textarea></div>
-      ${bring?'':`<div class="field"><label for="s-utr">Last 4 digits of the UPI reference (optional)</label><input id="s-utr" inputmode="numeric" maxlength="12" placeholder="Helps us match your payment"></div>
-      <label class="check"><input type="checkbox" id="s-show"> Show my amount on the wall</label>`}
+      <div class="field"><label for="s-name">Your name</label><input id="s-name" autocomplete="name" maxlength="60" required placeholder="Your name"></div>
+      <div class="field"><span>Pick a sticker</span><div class="stickers">${Object.keys(STICKERS).map(k=>`<button type="button" class="stk" data-stk="${k}" aria-pressed="${F.sticker===k}" aria-label="${k}">${STICKERS[k]}</button>`).join('')}</div></div>
+      <div class="field"><label for="s-msg">A note for us (optional)</label><textarea id="s-msg" maxlength="280" placeholder="Wishes, advice, a memory of us…"></textarea></div>
+      ${bring?'':`<div class="field"><label for="s-utr">Last 4 digits of the UPI reference (optional, helps us find it)</label><input id="s-utr" inputmode="numeric" maxlength="12" placeholder="e.g. 4821"></div>
+      <label class="check"><input type="checkbox" id="s-show"> Show the amount with my note</label>`}
       <input type="text" id="s-web" name="website" tabindex="-1" autocomplete="off" class="sr" aria-hidden="true">
       <p class="err" id="err3"></p>
-      <button class="pill" type="submit" id="send3" style="width:100%;justify-content:center;padding:14px">${bring?'Reserve it':'Stick it on the wall'}</button>
+      <button class="pill" type="submit" id="send3" style="width:100%;justify-content:center;padding:14px">${bring?'Take it off the list':'Send'}</button>
     </form>`);
   const sh=$('sheet');
   sh.querySelectorAll('.stk').forEach(b=>b.onclick=()=>{ F.sticker=b.dataset.stk; sh.querySelectorAll('.stk').forEach(x=>x.setAttribute('aria-pressed',x===b)); });
   $('f3').onsubmit=async e=>{
     e.preventDefault();
-    const name=$('s-name').value.trim(); if(!name){ $('err3').textContent='Add your name so we know who to thank.'; return $('s-name').focus(); }
+    const name=$('s-name').value.trim(); if(!name){ $('err3').textContent='Please add your name.'; return $('s-name').focus(); }
     const body={kind:F.kind,item:F.id,option:F.option,mode:F.mode,amount:F.amount,name,message:$('s-msg').value.trim(),sticker:F.sticker,utr:$('s-utr')?$('s-utr').value.trim():'',showAmount:$('s-show')?$('s-show').checked:false,website:$('s-web').value};
     if(!C.apiUrl){ S.wall.unshift({...body, amount: body.showAmount?F.amount:null, verified:false}); return success(name,false); }
-    const btn=$('send3'); btn.disabled=true; btn.textContent='Sticking…'; $('err3').textContent='';
+    const btn=$('send3'); btn.disabled=true; btn.textContent='Sending…'; $('err3').textContent='';
     try{
       const res=await post(body); if(res.state) applyLive(res.state);
-      if(!res.ok){ btn.disabled=false; btn.textContent=bring?'Reserve it':'Stick it on the wall';
-        if(res.error==='taken'){ refresh(); return $('err3').textContent='Someone just reserved this one. Try another gift or a fund!'; }
-        return $('err3').textContent='That didn\'t go through. Check your name and try again.'; }
+      if(!res.ok){ btn.disabled=false; btn.textContent=bring?'Take it off the list':'Send';
+        if(res.error==='taken'){ refresh(); return $('err3').textContent='Someone else has just said they\'ll bring this one. Could you pick something else?'; }
+        return $('err3').textContent='That didn\'t send. Please check your name and try again.'; }
       success(name,res.converted);
-    }catch(err){ btn.disabled=false; btn.textContent='Try again'; $('err3').textContent='Couldn\'t reach our server. Your payment is safe, just tap try again.'; }
+    }catch(err){ btn.disabled=false; btn.textContent='Try again'; $('err3').textContent='That didn\'t send, but your payment is fine. Please tap Try again.'; }
   };
 }
 function success(name, converted){
   const bring=F&&F.mode==='bring', stk=STICKERS[(F&&F.sticker)||'heart'];
-  const head = !C.apiUrl ? 'Thank you!' : (bring?'It\'s yours, ':'You\'re on the wall, ')+esc(first(name))+'!';
+  const head = name ? 'Thank you, '+esc(first(name))+'!' : 'Thank you!';
   openSheet(`<div class="done">${stk}<h3 id="sheet-title" style="padding:0">${head}</h3>
     <p class="sub" style="margin:0">${!C.apiUrl?'We\'ll spot your payment in our bank app. You\'re the best.':converted?'Someone covered that gift seconds before you, so your payment went to our first home instead. Thank you!':bring?'We\'ve taken it off the belt. Thank you!':'Thank you. We\'ll add a gold tick once we spot the payment.'}</p>
     <button class="pill" type="button" id="cls">Back to the registry</button></div>`);

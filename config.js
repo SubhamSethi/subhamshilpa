@@ -58,7 +58,7 @@ window.REGISTRY = {
   funds: {
     home: {
       title: "Our first home",
-      blurb: "Bricks, a sofa big enough for two naps, and a kitchen where we argue about masala levels.",
+      blurb: "A sofa big enough for two naps, and a kitchen where we can argue about how much masala is too much.",
       target: 300000,
       photo: "photos/cottage.jpg",
       photoCaption: "The practice run",
@@ -73,7 +73,7 @@ window.REGISTRY = {
     },
     honeymoon: {
       title: "The honeymoon",
-      blurb: "We're off to Japan or the Masai Mara. Wherever we land, every rupee here gets us there.",
+      blurb: "We haven't decided yet, but it'll be one of these two. Anything you send goes towards the trip.",
       target: 450000,
       photo: "photos/hills-wide.jpg",
       photoCaption: "Next: your call",
@@ -108,14 +108,13 @@ window.REGISTRY = {
 
   // Shown in the FAQ section. Plain text.
   faq: [
-    ["How do I pay?", "Tap Open my UPI app on your phone, or scan the QR code from a laptop. Any UPI app works: GPay, PhonePe, Paytm, BHIM or your bank's own app."],
-    ["Are there any fees?", "None at all. Your payment goes straight from your bank to ours over UPI. No gateway, no middleman, no cut."],
-    ["What if someone already picked the gift I want?", "Gifts leave the belt the moment they're fully covered, so you only ever see what's still needed. The site also double-checks right before you pay."],
-    ["Can a few of us split a big gift?", "Yes. Tap Chip in on any gift and add what you like. The bar fills up as friends join in, and the gift disappears once it's covered."],
-    ["I'd rather buy the gift myself.", "Tap I'll buy it and bring it. We take it off the list straight away so nobody else buys the same one."],
-    ["Will everyone see how much I gave?", "Only if you tick Show my amount. Otherwise the wall shows just your name, your note and your sushi sticker."],
-    ["How will you know it was me?", "After paying, stamp the wall with your name. We match it against our bank app and add a tick once we spot it."],
-    ["Can I give an envelope at the wedding instead?", "Of course. Your blessings matter most to us. This page is simply for those who asked what we'd like."]
+    ["Do we have to bring or send a gift?", "Not at all. Having you with us is what we'll remember. This page is only for the friends and family who asked what we'd like."],
+    ["How do I pay?", "On your phone, tap Open my UPI app and it opens GPay, PhonePe, Paytm or your bank's app with everything filled in. On a laptop, scan the QR code with your phone."],
+    ["How will you know it was from me?", "After paying, come back to the page and tap Done, I've paid. Add your name and a note if you like. That's how we know who to thank."],
+    ["Can a few of us share one gift?", "Yes. Tap Share with friends on any gift and put in whatever you like. It comes off the list once it's fully covered."],
+    ["I'd rather buy the gift myself.", "Tap I'll buy and bring it. We'll take it off the list so nobody else buys the same thing."],
+    ["Will others see how much I gave?", "No. Your note shows only your name and message, unless you tick the box to show the amount."],
+    ["Can I just give an envelope at the wedding?", "Of course. Your blessings matter most to us, however you'd like to give them."]
   ],
 
   gifts: [
