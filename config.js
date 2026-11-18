@@ -12,7 +12,7 @@ window.REGISTRY = {
     date: "2027-01-24",            // wedding day, drives the countdown
     time: "16:15",                 // pāṇigrahaṇa muhurat, 4:15 to 4:39 PM
     dateLabel: "24 Jan 2027 · Berhampur",
-    instagram: "sushi.romas"       // leave "" to hide
+    instagram: "sushi.roams"       // leave "" to hide
   },
 
   upi: {
@@ -74,7 +74,7 @@ window.REGISTRY = {
         [1101, "the doorbell"],
         [2101, "curtains for one window"],
         [5101, "a bookshelf"],
-        [11000, "the dining table"],
+        [11000, "the griha pravesh puja"],
         [21000, "most of the fridge"]
       ]
     },

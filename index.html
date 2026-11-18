@@ -390,6 +390,20 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border-radius:50%;bac
 .gift-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px;margin-top:22px}
 .gift-grid .empty{grid-column:1/-1}
 .gift-grid .gift{flex:none}
+.raised{margin:10px 0 16px;font-size:15px;color:var(--muted)}
+.raised b{color:var(--ink);font-family:var(--mono);font-weight:600}
+.tile .raised{margin:0}
+.trip-cta{flex-direction:column;align-items:center;gap:12px}
+.trip-cta .raised{margin:0}
+.cf-in .raised{margin:4px 0 0;font-size:14px;color:rgba(244,241,251,.85)}
+.ig-pill{display:inline-flex;align-items:center;gap:10px;margin-top:20px;padding:10px 18px 10px 14px;border-radius:980px;text-decoration:none;color:var(--ink);background:linear-gradient(120deg,rgba(255,138,61,.16),rgba(255,61,127,.16),rgba(164,124,255,.16));box-shadow:inset 0 0 0 1px rgba(255,255,255,.18);font-size:15px;transition:transform .25s var(--spring),box-shadow .25s}
+.ig-pill:hover{transform:translateY(-2px);box-shadow:inset 0 0 0 1px var(--pink),0 0 30px -8px var(--pink)}
+.ig-pill svg{color:var(--pink)}
+.ig-pill b{font-weight:600}
+.ig-nav{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:50%;color:var(--ink);background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px var(--line);transition:color .2s,box-shadow .2s}
+.ig-nav:hover{color:var(--pink);box-shadow:inset 0 0 0 1px var(--pink)}
+.ig-more{display:inline-flex;align-items:center;gap:8px;margin-right:auto;color:var(--ink);text-decoration:none;font-weight:600;font-size:15px;padding:10px 16px;border-radius:980px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)}
+.ig-more:hover{box-shadow:inset 0 0 0 1px var(--pink);color:var(--pink)}
 .fund-note{margin:14px 0 0;color:var(--muted);font-size:14px}
 .gift-alt{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;margin-top:26px;color:var(--muted);font-size:15px}
 .fab{position:fixed;right:max(18px,env(safe-area-inset-right));bottom:calc(18px + env(safe-area-inset-bottom));z-index:45;padding:12px 20px;min-height:50px;font-size:15px;transform:translateY(120px);opacity:0;transition:transform .5s var(--spring),opacity .3s,background-position .6s var(--ease),box-shadow .3s}
@@ -666,6 +680,7 @@ footer .names{font-size:clamp(34px,6vw,60px);margin:0 0 12px;color:var(--ink)}
   <a class="l" href="#honeymoon">Honeymoon</a>
   <a class="l" href="#wall">Notes</a>
   <a class="l" href="#faq">FAQ</a>
+  <a class="ig-nav" id="igNav" href="#" target="_blank" rel="noopener" aria-label="Our Instagram"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.3" fill="currentColor"/></svg></a>
   <button class="pill sm" type="button" data-chooser>Send a gift</button>
 </div></nav>
 <noscript><p style="padding:24px;text-align:center">This registry needs JavaScript to show live totals and UPI payment details.</p></noscript>
@@ -681,6 +696,7 @@ footer .names{font-size:clamp(34px,6vw,60px);margin:0 0 12px;color:var(--ink)}
 "use strict";
 document.documentElement.classList.add('js');
 const C = window.REGISTRY;
+{ const ig=document.getElementById('igNav'); if(ig){ if(C.couple.instagram) ig.href='https://www.instagram.com/'+C.couple.instagram; else ig.remove(); } }
 const $ = id => document.getElementById(id);
 const INR = new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0});
 const rs = n => INR.format(Math.round(n||0));
@@ -901,6 +917,10 @@ function eventsHTML(){
       </div></article>`; }).join('');
 }
 
+/* Friendly "raised so far" line, shown only once something has come in */
+function raisedLine(f){ if(!f || !(f.raised>0)) return ''; const n=f.count||0; return `<p class="raised"><b>${rs(f.raised)}</b> raised so far${n?`, from ${n} ${n===1?'person':'people'}`:''}. Thank you!</p>`; }
+const IG_ICON='<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.3" fill="currentColor"/></svg>';
+
 /* ---------- Share links + hash routes ---------- */
 function shareBase(){ if(C.shareUrl) return C.shareUrl.replace(/#.*$/,''); return location.href.replace(/#.*$/,''); }
 function shareLinks(){
@@ -966,6 +986,7 @@ function render(){
     <p class="lede">We're getting married, and we'd love you to be there.</p>
     <div class="countdown num" id="cd" aria-live="off"><div><b id="cd-d">00</b><small>Days</small></div><div><b id="cd-h">00</b><small>Hours</small></div><div><b id="cd-m">00</b><small>Minutes</small></div><div><b id="cd-s">00</b><small>Seconds</small></div></div>
     <p class="cd-label">until we tie the knot</p>
+    ${c.instagram?`<a class="ig-pill" href="https://www.instagram.com/${esc(c.instagram)}" target="_blank" rel="noopener">${IG_ICON}<span>Follow our story <b>@${esc(c.instagram)}</b></span></a>`:''}
     <div class="ctas"><a class="pill" href="#wedding">Wedding details</a><button class="pill ghost" type="button" data-chooser>Send a gift</button></div>
     <div class="fan" id="fan"><div class="orbit" aria-hidden="true"><span></span></div>
       <figure class="f2"><img src="${esc(P.heroBack[0])}" alt="Subham and Shilpa at a candlelit dinner"></figure>
@@ -1000,6 +1021,7 @@ function render(){
         <span class="tag">Our first home</span>
         <h3>Help us set<br>up home.</h3>
         <p>Every bit goes into the place we're building together.</p>
+        ${raisedLine(hf)}
         <span class="more">Add a brick</span>
       </a>
       <a class="tile t-trip rv tilt ring-border" href="#honeymoon" style="--c:${O1.color}">${SHINE}
@@ -1007,6 +1029,7 @@ function render(){
         <h3>Send us to ${esc(O1.name)}<br>or ${esc(O2.name)}.</h3>
         <p>We haven't picked yet. It'll be one of these two.</p>
         <div class="split"><span style="flex-basis:${tp}%;background:linear-gradient(90deg,${O1.color},${O2.color})"></span></div>
+        ${raisedLine(tf)}
         <span class="more" style="color:var(--gold)">Contribute to the trip</span>
       </a>
       <a class="tile t-wall rv tilt ring-border" href="#wall">${SHINE}
@@ -1036,6 +1059,7 @@ function render(){
       </figure>
       <div class="rv">
         <div class="chip-list">${HOME.chips.map(ch=>`<button type="button" data-fund="home" data-amt="${ch[0]}"><b>${rs(ch[0])}</b> · ${esc(ch[1])}</button>`).join('')}</div>
+        ${raisedLine(hf)}
         <button class="pill" type="button" data-fund="home">Add a brick</button>
         <p class="fund-note">The amounts above are just ideas. Any amount is lovely.</p>
       </div>
@@ -1049,13 +1073,13 @@ function render(){
       <div class="vs" aria-hidden="true">or</div>
       ${optCard(O2, destArt(O2,'Masai Mara','1.49° S · 35.14° E'))}
     </div>
-    <div class="trip-cta rv"><button class="pill" type="button" data-fund="honeymoon">Contribute to our honeymoon</button></div>
+    <div class="trip-cta rv">${raisedLine(tf)}<button class="pill" type="button" data-fund="honeymoon">Contribute to our honeymoon</button></div>
   </div></section>
 
   <section class="chapter tight" id="story"><div class="wrap">
     <div class="ch-head rv"><span class="eyebrow hud" data-scramble>Us, so far</span><h2>A few photos from the road to the mandap.</h2></div>
     <div class="rail-wrap rv"><div class="gallery" id="gallery">${P.story.map(st=>`<figure${st.wide?` class="wide" style="--r:${+st.wide||1.33}"`:''}><div class="ph"><img src="${esc(st.src)}" alt="${esc(st.caption||'Subham and Shilpa')}" loading="lazy"></div><figcaption>${st.when?`<small>${esc(st.when)}</small>`:''}${esc(st.caption||'')}</figcaption></figure>`).join('')}</div>
-    <div class="rail-btns"><button class="rbtn" type="button" data-rail="-1" data-target="gallery" aria-label="Previous photo">‹</button><button class="rbtn" type="button" data-rail="1" data-target="gallery" aria-label="Next photo">›</button></div></div>
+    <div class="rail-btns">${c.instagram?`<a class="ig-more" href="https://www.instagram.com/${esc(c.instagram)}" target="_blank" rel="noopener">${IG_ICON}More of us on Instagram</a>`:''}<button class="rbtn" type="button" data-rail="-1" data-target="gallery" aria-label="Previous photo">‹</button><button class="rbtn" type="button" data-rail="1" data-target="gallery" aria-label="Next photo">›</button></div></div>
   </div></section>
 
   <section class="chapter tight" id="wall"><div class="wrap">
@@ -1087,7 +1111,7 @@ function render(){
   </div></section>`:''}
 
   <footer><div class="names serif">${esc(c.a)} <i style="color:var(--accent)">&amp;</i> ${esc(c.b)}</div>
-    ${esc(c.tag)} · ${esc(c.dateLabel||c.date)}${c.instagram?`<br>Say hi on Instagram: <a class="link" href="https://instagram.com/${esc(c.instagram)}" target="_blank" rel="noopener">@${esc(c.instagram)}</a>`:''}</footer>`;
+    ${esc(c.tag)} · ${esc(c.dateLabel||c.date)}${c.instagram?`<br>Say hi on Instagram: <a class="link" href="https://www.instagram.com/${esc(c.instagram)}" target="_blank" rel="noopener">@${esc(c.instagram)}</a>`:''}</footer>`;
   afterRender();
 }
 
@@ -1273,8 +1297,8 @@ function openChooser(){
     ${open.length?`<div class="ch-main"><h4 class="ch-h">From our wishlist</h4><div class="cg-grid">${cards}</div></div>`:''}
     <div class="ch-side"><h4 class="ch-h">Or contribute towards</h4>
     <div class="cf-grid">
-      <button type="button" class="cf" data-fund="home" style="--img:url('${esc(HOME.photo)}')"><span class="cf-in"><small>Our first home</small><b>Help us set up home</b><span>For the place we're building together.</span><em>Add a brick →</em></span></button>
-      <button type="button" class="cf trip" data-fund="honeymoon" style="--a:${O1.color};--b:${O2.color}"><span class="cf-in"><small>Our honeymoon</small><b>${esc(O1.name)} or ${esc(O2.name)}</b><span>We haven't picked yet. It'll be one of these two.</span><em>Contribute →</em></span></button>
+      <button type="button" class="cf" data-fund="home" style="--img:url('${esc(HOME.photo)}')"><span class="cf-in"><small>Our first home</small><b>Help us set up home</b><span>For the place we're building together.</span>${raisedLine(S.funds.home).replace('<p class="raised">','<span class="raised">').replace('</p>','</span>')}<em>Add a brick →</em></span></button>
+      <button type="button" class="cf trip" data-fund="honeymoon" style="--a:${O1.color};--b:${O2.color}"><span class="cf-in"><small>Our honeymoon</small><b>${esc(O1.name)} or ${esc(O2.name)}</b><span>We haven't picked yet. It'll be one of these two.</span>${raisedLine(S.funds.honeymoon).replace('<p class="raised">','<span class="raised">').replace('</p>','</span>')}<em>Contribute →</em></span></button>
     </div></div>
     </div>
   </div>`, true);
