@@ -549,6 +549,7 @@ function applyLive(d){
   if(!d || !d.ok) return;
   (d.funds||[]).forEach(f=>{ if(S.funds[f.id]) S.funds[f.id] = { target:f.target||C.funds[f.id].target, raised:f.raised||0, count:f.count||0, byOption:f.byOption||{} }; });
   S.gifts = d.gifts||[]; S.wall = d.wall||[]; S.live = true;
+  if(Array.isArray(d.events) && d.events.length) C.events = d.events.filter(e=>e && e.name && /^\d{4}-\d{2}-\d{2}$/.test(e.date));
 }
 let lastSig = '';
 async function fetchState(){
@@ -559,7 +560,7 @@ async function fetchState(){
   finally{ clearTimeout(t); S.loading=false; }
 }
 async function post(body){ const r = await fetch(C.apiUrl,{method:'POST',body:JSON.stringify(body)}); return r.json(); }
-const sig = () => JSON.stringify([S.funds,S.gifts,S.wall,S.failed,S.loading]);
+const sig = () => JSON.stringify([S.funds,S.gifts,S.wall,C.events,S.failed,S.loading]);
 
 /* ---------- Helpers ---------- */
 function tier(p){ if(p<5000) return {c:'#E6DFD8',g:'#FFFFFF',n:'Rice',r:'under ₹5k'}; if(p<15000) return {c:'#FF5E3F',g:'#FF5E3F',n:'Salmon',r:'₹5k to 15k'}; if(p<30000) return {c:'#FFC95C',g:'#FFC95C',n:'Gold',r:'₹15k to 30k'}; return {c:'#2A2440',g:'#A47CFF',n:'Nori',r:'₹30k and up'}; }
