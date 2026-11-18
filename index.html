@@ -548,31 +548,42 @@ footer .names{font-size:clamp(34px,6vw,60px);margin:0 0 12px;color:var(--ink)}
 .scrim.fullmode{align-items:stretch}
 .sheet.full{max-width:none;width:100%;max-height:none;height:100%;border-radius:0;padding:max(28px,env(safe-area-inset-top)) max(20px,env(safe-area-inset-right)) calc(40px + env(safe-area-inset-bottom)) max(20px,env(safe-area-inset-left));background:radial-gradient(60% 40% at 15% 0%,rgba(255,94,63,.16),transparent 70%),radial-gradient(50% 40% at 90% 10%,rgba(164,124,255,.14),transparent 70%),#0A0814;box-shadow:none}
 .sheet.full .x{position:fixed;top:max(18px,env(safe-area-inset-top));right:max(18px,env(safe-area-inset-right));z-index:6;width:48px;height:48px;font-size:22px;background:rgba(255,255,255,.1);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-.ch-wrap{max-width:1120px;margin:0 auto}
+.ch-wrap{max-width:1280px;margin:0 auto}
+@media (min-width:1000px){
+  .ch-cols{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:28px;align-items:start}
+  .ch-side{position:sticky;top:0}
+  .ch-cols .cf-grid{grid-template-columns:1fr}
+  .ch-cols .cf{min-height:250px}
+  .ch-cols .cf-in b{font-size:22px}
+  .ch-cols .cg-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sheet.full .ch-top{margin:6px auto 18px}
+}
+@media (min-width:1000px) and (max-height:820px){.ch-cols .cf{min-height:190px}}
 .ch-top{text-align:center;max-width:720px;margin:20px auto 34px}
 .ch-top .eyebrow{display:inline-block;margin-bottom:14px}
 .sheet.full .ch-top h3{font-size:clamp(28px,4.4vw,48px);line-height:1.08;letter-spacing:-.035em;padding:0}
 .sheet.full .ch-top .sub{font-size:17px;margin:12px 0 0}
 .ch-h{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:30px 0 14px}
 .cg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:16px}
-.cg{background:var(--panel);box-shadow:inset 0 0 0 1px var(--line);border-radius:24px;padding:22px;display:flex;flex-direction:column;gap:10px;min-width:0;transition:box-shadow .3s,transform .3s var(--ease)}
+.cg{background:var(--panel);box-shadow:inset 0 0 0 1px var(--line);border-radius:22px;padding:18px 20px;display:flex;flex-direction:column;gap:10px;min-width:0;transition:box-shadow .3s,transform .3s var(--ease)}
 .cg:hover{box-shadow:inset 0 0 0 1px rgba(255,255,255,.2),0 0 40px -14px var(--g);transform:translateY(-3px)}
 .cg-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:4px}
-.cg-plate{width:74px;height:74px;border-radius:50%;background:#F7F4FF;color:var(--plate-ink);border:10px solid var(--c);display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:14px;box-shadow:0 0 0 1px rgba(255,255,255,.3),0 0 28px -6px var(--g);flex:none}
+.cg-plate{width:60px;height:60px;border-radius:50%;background:#F7F4FF;color:var(--plate-ink);border:8px solid var(--c);display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:14px;box-shadow:0 0 0 1px rgba(255,255,255,.3),0 0 28px -6px var(--g);flex:none}
 .cg-state{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);text-align:right}
 .cg h5{margin:0;font-family:var(--display);font-size:21px;font-weight:600;letter-spacing:-.03em;line-height:1.2}
 .cg p{margin:0;color:var(--muted);font-size:15px}
 .cg .cg-shared{font-size:13.5px}
-.cg-acts{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:auto;padding-top:10px}
+.cg-acts{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin-top:auto;padding-top:6px}
 .cg-acts .pill{font-size:14px;padding:9px 16px}
 .cg-bring{background:none;border:0;color:var(--muted);text-decoration:underline;text-underline-offset:4px;cursor:pointer;font-size:14px;padding:10px 4px;min-height:44px}
 .cg-bring:hover{color:var(--ink)}
 .cf-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media (max-width:700px){.cf-grid{grid-template-columns:1fr}}
 .cf{position:relative;border:0;border-radius:24px;min-height:240px;padding:0;overflow:hidden;cursor:pointer;text-align:left;color:var(--ink);background:var(--img) center/cover,#1A1530;box-shadow:inset 0 0 0 1px var(--line);transition:transform .35s var(--ease),box-shadow .3s}
-.cf.trip{background:radial-gradient(circle at 78% 30%,color-mix(in srgb,var(--a) 70%,transparent) 0 14%,transparent 15%),radial-gradient(circle at 60% 55%,color-mix(in srgb,var(--b) 60%,transparent) 0 10%,transparent 11%),linear-gradient(150deg,color-mix(in srgb,var(--a) 30%,#0B0912),#0B0912 60%,color-mix(in srgb,var(--b) 25%,#0B0912))}
+.cf.trip{background:radial-gradient(circle at 86% 16%,color-mix(in srgb,var(--a) 75%,transparent) 0 30px,transparent 31px),radial-gradient(circle at 72% 26%,color-mix(in srgb,var(--b) 70%,transparent) 0 18px,transparent 19px),linear-gradient(150deg,color-mix(in srgb,var(--a) 30%,#0B0912),#0B0912 60%,color-mix(in srgb,var(--b) 25%,#0B0912))}
 .cf:hover{transform:translateY(-3px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.25),0 30px 60px -30px rgba(255,61,127,.6)}
-.cf-in{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;padding:22px;background:linear-gradient(transparent 25%,rgba(7,6,13,.9))}
+.cf-in{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;padding:22px;background:linear-gradient(rgba(7,6,13,0) 20%,rgba(7,6,13,.75) 55%,rgba(7,6,13,.96))}
+.cf:not(.trip){background-position:center 20%}
 .cf-in small{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
 .cf-in b{font-family:var(--display);font-size:clamp(22px,2.6vw,28px);letter-spacing:-.03em;line-height:1.15}
 .cf-in span{color:rgba(244,241,251,.8);font-size:15px}
@@ -1258,11 +1269,13 @@ function openChooser(){
   }).join('');
   openSheet(`<div class="ch-wrap">
     <div class="ch-top"><span class="eyebrow hud">Send a gift</span><h3 id="sheet-title">Pick something for our new home.</h3><p class="sub">Whatever you choose, thank you. It means a lot to us.</p></div>
-    ${open.length?`<h4 class="ch-h">From our wishlist</h4><div class="cg-grid">${cards}</div>`:''}
-    <h4 class="ch-h">Or contribute towards</h4>
+    <div class="ch-cols">
+    ${open.length?`<div class="ch-main"><h4 class="ch-h">From our wishlist</h4><div class="cg-grid">${cards}</div></div>`:''}
+    <div class="ch-side"><h4 class="ch-h">Or contribute towards</h4>
     <div class="cf-grid">
       <button type="button" class="cf" data-fund="home" style="--img:url('${esc(HOME.photo)}')"><span class="cf-in"><small>Our first home</small><b>Help us set up home</b><span>For the place we're building together.</span><em>Add a brick →</em></span></button>
       <button type="button" class="cf trip" data-fund="honeymoon" style="--a:${O1.color};--b:${O2.color}"><span class="cf-in"><small>Our honeymoon</small><b>${esc(O1.name)} or ${esc(O2.name)}</b><span>We haven't picked yet. It'll be one of these two.</span><em>Contribute →</em></span></button>
+    </div></div>
     </div>
   </div>`, true);
 }
