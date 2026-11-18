@@ -544,6 +544,40 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border-radius:50%;bac
 footer{text-align:center;padding:100px 0 calc(80px + env(safe-area-inset-bottom));color:var(--muted);font-size:14px}
 footer .names{font-size:clamp(34px,6vw,60px);margin:0 0 12px;color:var(--ink)}
 
+/* ---------- Full-screen gift picker ---------- */
+.scrim.fullmode{align-items:stretch}
+.sheet.full{max-width:none;width:100%;max-height:none;height:100%;border-radius:0;padding:max(28px,env(safe-area-inset-top)) max(20px,env(safe-area-inset-right)) calc(40px + env(safe-area-inset-bottom)) max(20px,env(safe-area-inset-left));background:radial-gradient(60% 40% at 15% 0%,rgba(255,94,63,.16),transparent 70%),radial-gradient(50% 40% at 90% 10%,rgba(164,124,255,.14),transparent 70%),#0A0814;box-shadow:none}
+.sheet.full .x{position:fixed;top:max(18px,env(safe-area-inset-top));right:max(18px,env(safe-area-inset-right));z-index:6;width:48px;height:48px;font-size:22px;background:rgba(255,255,255,.1);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.ch-wrap{max-width:1120px;margin:0 auto}
+.ch-top{text-align:center;max-width:720px;margin:20px auto 34px}
+.ch-top .eyebrow{display:inline-block;margin-bottom:14px}
+.sheet.full .ch-top h3{font-size:clamp(28px,4.4vw,48px);line-height:1.08;letter-spacing:-.035em;padding:0}
+.sheet.full .ch-top .sub{font-size:17px;margin:12px 0 0}
+.ch-h{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:30px 0 14px}
+.cg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:16px}
+.cg{background:var(--panel);box-shadow:inset 0 0 0 1px var(--line);border-radius:24px;padding:22px;display:flex;flex-direction:column;gap:10px;min-width:0;transition:box-shadow .3s,transform .3s var(--ease)}
+.cg:hover{box-shadow:inset 0 0 0 1px rgba(255,255,255,.2),0 0 40px -14px var(--g);transform:translateY(-3px)}
+.cg-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:4px}
+.cg-plate{width:74px;height:74px;border-radius:50%;background:#F7F4FF;color:var(--plate-ink);border:10px solid var(--c);display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:14px;box-shadow:0 0 0 1px rgba(255,255,255,.3),0 0 28px -6px var(--g);flex:none}
+.cg-state{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);text-align:right}
+.cg h5{margin:0;font-family:var(--display);font-size:21px;font-weight:600;letter-spacing:-.03em;line-height:1.2}
+.cg p{margin:0;color:var(--muted);font-size:15px}
+.cg .cg-shared{font-size:13.5px}
+.cg-acts{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:auto;padding-top:10px}
+.cg-acts .pill{font-size:14px;padding:9px 16px}
+.cg-bring{background:none;border:0;color:var(--muted);text-decoration:underline;text-underline-offset:4px;cursor:pointer;font-size:14px;padding:10px 4px;min-height:44px}
+.cg-bring:hover{color:var(--ink)}
+.cf-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:700px){.cf-grid{grid-template-columns:1fr}}
+.cf{position:relative;border:0;border-radius:24px;min-height:240px;padding:0;overflow:hidden;cursor:pointer;text-align:left;color:var(--ink);background:var(--img) center/cover,#1A1530;box-shadow:inset 0 0 0 1px var(--line);transition:transform .35s var(--ease),box-shadow .3s}
+.cf.trip{background:radial-gradient(circle at 78% 30%,color-mix(in srgb,var(--a) 70%,transparent) 0 14%,transparent 15%),radial-gradient(circle at 60% 55%,color-mix(in srgb,var(--b) 60%,transparent) 0 10%,transparent 11%),linear-gradient(150deg,color-mix(in srgb,var(--a) 30%,#0B0912),#0B0912 60%,color-mix(in srgb,var(--b) 25%,#0B0912))}
+.cf:hover{transform:translateY(-3px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.25),0 30px 60px -30px rgba(255,61,127,.6)}
+.cf-in{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;padding:22px;background:linear-gradient(transparent 25%,rgba(7,6,13,.9))}
+.cf-in small{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.cf-in b{font-family:var(--display);font-size:clamp(22px,2.6vw,28px);letter-spacing:-.03em;line-height:1.15}
+.cf-in span{color:rgba(244,241,251,.8);font-size:15px}
+.cf-in em{font-style:normal;font-weight:600;color:var(--accent);margin-top:6px}
+@media (prefers-reduced-motion:no-preference){.sheet.full .cg,.sheet.full .cf{animation:fadeUp .6s var(--ease) both}.sheet.full .cg:nth-child(2){animation-delay:.05s}.sheet.full .cg:nth-child(3){animation-delay:.1s}.sheet.full .cg:nth-child(4){animation-delay:.15s}.sheet.full .cg:nth-child(5){animation-delay:.2s}.sheet.full .cg:nth-child(n+6){animation-delay:.25s}}
 /* ---------- Sheet ---------- */
 .scrim{position:fixed;inset:0;background:rgba(3,2,8,.6);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:flex-end;justify-content:center;z-index:50;opacity:0;pointer-events:none;transition:opacity .35s}
 .scrim.open{opacity:1;pointer-events:auto}
@@ -1208,24 +1242,38 @@ function setupNote(){
 /* ---------- Gift chooser: one tap from anywhere ---------- */
 function openChooser(){
   const open=S.gifts.filter(g=>g.remaining>0).sort((a,b)=>a.price-b.price);
-  const gl=open.map(g=>{ const t=tier(g.price), canWhole=g.remaining>=g.price; return `<button type="button" class="choose-item" data-gift="${esc(g.id)}" data-mode="${canWhole?'whole':'chip'}" style="--c:${t.c};--g:${t.g}"><span class="mini-plate num">${short(g.price)}</span><span><b>${esc(g.name)}</b><small>${g.covered>0?'Friends are sharing this one':esc(g.note||'')}</small></span><span class="go">${canWhole?'Gift this':'Join in'} →</span></button>`; }).join('');
-  openSheet(`<h3 id="sheet-title">Send a gift</h3><p class="sub">Whatever you choose, thank you. It means a lot to us.</p>
-    <div class="choose">
-      ${open.length?`<h4>From our wishlist</h4>${gl}`:''}
-      <h4>Or contribute towards</h4>
-      <button type="button" class="choose-item" data-fund="home">${ICON_HOME}<span><b>${esc(HOME.title)}</b><small>For the place we're setting up together.</small></span><span class="go">Add a brick →</span></button>
-      <button type="button" class="choose-item" data-fund="honeymoon">${iconTrip(O1)}<span><b>The honeymoon</b><small>We're off to ${esc(O1.name)} or ${esc(O2.name)}.</small></span><span class="go">Contribute →</span></button>
-      ${open.length?'<button type="button" class="pill ghost" id="seeList" style="justify-content:center;margin-top:6px">See the full wishlist</button>':''}
-    </div>`);
-  const sl=$('seeList'); if(sl) sl.onclick=()=>{ closeSheet(); setTimeout(()=>$('gifts').scrollIntoView({behavior:RM?'auto':'smooth'}),80); };
+  const cards=open.map(g=>{
+    const t=tier(g.price), total=g.price*g.qty, canWhole=g.remaining>=g.price, gp=Math.min(100,(g.covered||0)/total*100);
+    const state = g.qty>1 ? `${Math.ceil(g.remaining/g.price)} of ${g.qty} still on our list` : g.covered>0 ? 'Friends are sharing this one' : 'On our wishlist';
+    return `<article class="cg" style="--c:${t.c};--g:${t.g}">
+      <div class="cg-top"><span class="cg-plate num">${short(g.price)}</span><span class="cg-state">${state}</span></div>
+      <h5>${esc(g.name)}</h5>${g.note?`<p>${esc(g.note)}</p>`:''}
+      ${g.covered>0?`<div class="bar"><span style="transform:scaleX(${(gp/100).toFixed(3)})"></span></div><p class="cg-shared">Shared by ${esc((g.givers||[]).slice(0,3).join(', '))}${(g.givers||[]).length>3?' and others':''}</p>`:''}
+      ${g.link?`<a class="link" href="${esc(g.link)}" target="_blank" rel="noopener">See the one we have in mind</a>`:''}
+      <div class="cg-acts">
+        ${canWhole?`<button class="pill" type="button" data-gift="${esc(g.id)}" data-mode="whole">Gift this · ${rs(g.price)}</button>`:''}
+        <button class="pill ${canWhole?'ghost':''}" type="button" data-gift="${esc(g.id)}" data-mode="chip">Share with friends</button>
+        ${canWhole&&C.apiUrl?`<button class="cg-bring" type="button" data-gift="${esc(g.id)}" data-mode="bring">I'll buy and bring it</button>`:''}
+      </div></article>`;
+  }).join('');
+  openSheet(`<div class="ch-wrap">
+    <div class="ch-top"><span class="eyebrow hud">Send a gift</span><h3 id="sheet-title">Pick something for our new home.</h3><p class="sub">Whatever you choose, thank you. It means a lot to us.</p></div>
+    ${open.length?`<h4 class="ch-h">From our wishlist</h4><div class="cg-grid">${cards}</div>`:''}
+    <h4 class="ch-h">Or contribute towards</h4>
+    <div class="cf-grid">
+      <button type="button" class="cf" data-fund="home" style="--img:url('${esc(HOME.photo)}')"><span class="cf-in"><small>Our first home</small><b>Help us set up home</b><span>For the place we're building together.</span><em>Add a brick →</em></span></button>
+      <button type="button" class="cf trip" data-fund="honeymoon" style="--a:${O1.color};--b:${O2.color}"><span class="cf-in"><small>Our honeymoon</small><b>${esc(O1.name)} or ${esc(O2.name)}</b><span>We haven't picked yet. It'll be one of these two.</span><em>Contribute →</em></span></button>
+    </div>
+  </div>`, true);
 }
 
 /* ---------- Give flow ---------- */
 let F=null;
 const GENERIC=[[501,'a coffee at the airport'],[1101,'a nice dinner out, wherever we land'],[2101,'a day of sightseeing'],[5101,'a good chunk of a hotel night'],[11000,'flights, partly'],[21000,'flights, mostly']];
 let lastFocus=null;
-function openSheet(html){
+function openSheet(html, full){
   if(!$('scrim').classList.contains('open')) lastFocus=document.activeElement;
+  $('sheet').classList.toggle('full',!!full); $('scrim').classList.toggle('fullmode',!!full);
   $('sheet').innerHTML=`<button class="x" type="button" aria-label="Close" id="xbtn">×</button>`+html;
   $('scrim').classList.add('open'); document.documentElement.style.overflow='hidden'; document.body.style.overflow='hidden';
   $('xbtn').onclick=closeSheet; $('sheet').scrollTop=0;
