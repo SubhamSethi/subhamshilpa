@@ -1,7 +1,7 @@
 /**
  * #Sushi registry backend. Paste this into the sheet's Extensions > Apps Script and deploy it as a web app.
  * GET  -> everything the website shows (funds, gifts, events, wall).
- * POST -> a guest stamps the wall after paying; the row lands in the Wall tab.
+ * POST -> a guest leaves a note (with or without a gift); the row lands in the Wall tab.
  * Columns are found by their header text, so tabs can be reordered or widened freely.
  */
 
@@ -22,14 +22,18 @@ function doPost(e) {
     const name = clean_(b.name, 60);
     if (!name) return json_({ ok: false, error: 'name' });
 
-    let kind = b.kind === 'gift' ? 'gift' : 'fund';
-    let item = clean_(b.item, 60);
+    const isNote = b.kind === 'note';
+    if (isNote && !clean_(b.message, 280)) return json_({ ok: false, error: 'message' });
+    let kind = isNote ? 'note' : b.kind === 'gift' ? 'gift' : 'fund';
+    let item = isNote ? '' : clean_(b.item, 60);
     const mode = ['upi', 'whole', 'chip', 'bring'].indexOf(b.mode) >= 0 ? b.mode : 'upi';
-    let amount = Math.max(0, Math.round(Number(b.amount) || 0));
+    let amount = isNote ? 0 : Math.max(0, Math.round(Number(b.amount) || 0));
     let converted = false;
 
     const st = state_();
-    if (kind === 'gift') {
+    if (isNote) {
+      // a note on the wall, no gift attached
+    } else if (kind === 'gift') {
       const g = st.gifts.filter(function (x) { return x.id === item; })[0];
       if (!g) return json_({ ok: false, error: 'unknown', state: st });
       if (mode === 'bring') {
@@ -41,7 +45,7 @@ function doPost(e) {
     } else if (!st.funds.some(function (f) { return f.id === item; })) {
       item = 'home';
     }
-    if (amount <= 0) return json_({ ok: false, error: 'amount' });
+    if (!isNote && amount <= 0) return json_({ ok: false, error: 'amount' });
 
     const wall = sheet_('Wall');
     const h = headers_(wall);
