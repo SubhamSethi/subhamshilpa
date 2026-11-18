@@ -23,8 +23,8 @@ window.REGISTRY = {
   apiUrl: "",
 
   // The public link you hand out. The share section builds every deep link (#japan, #gift-microwave…) from this.
-  // Hosting on GitHub Pages instead? Set it to "https://subhamsethi.github.io/sushi-registry/".
-  shareUrl: "https://claude.ai/artifact/QuZP7btSChxFPtLxkFKCve",
+  // Also published as a Claude artifact at https://claude.ai/artifact/QuZP7btSChxFPtLxkFKCve
+  shareUrl: "https://subhamshilpa.com/",
 
   homeAirport: "BLR",
 
