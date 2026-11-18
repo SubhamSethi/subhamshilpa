@@ -10,7 +10,7 @@ window.REGISTRY = {
     tag: "#Sushi",
     tagline: "Subham + Shilpa = Sushi. Two people, rolled into one.",
     date: "2027-01-24",            // wedding day, drives the countdown
-    time: "16:15",                 // pāṇigrahaṇa muhurat, 4:15 to 4:39 PM
+    time: "16:15",                 // wedding ceremony, 4:15 PM
     dateLabel: "24 Jan 2027 · Berhampur",
     instagram: "sushi.roams"       // leave "" to hide
   },
@@ -39,7 +39,7 @@ window.REGISTRY = {
     { name: "Sangeet", date: "2027-01-23", time: "19:00", hours: 4, city: "Gopalpur-on-Sea, Berhampur",
       venue: "Storyline Cafe", address: "", mapUrl: "https://maps.app.goo.gl/hbN44PJ52bn1maHN6", dress: "", note: "" },
     { name: "Wedding", date: "2027-01-24", time: "16:15", hours: 6, city: "Berhampur", main: true,
-      venue: "Saanaira Resorts & Spa", address: "", mapUrl: "https://maps.app.goo.gl/4vzAYWqkDmQVLmoN7", dress: "", note: "" },
+      venue: "Saanaira Resorts & Spa", address: "", mapUrl: "https://maps.app.goo.gl/4vzAYWqkDmQVLmoN7", dress: "", note: "The wedding ceremony is at 4:15 PM. Come early for lunch and the mocktail bar." },
     { name: "Reception", date: "2027-01-27", time: "19:00", hours: 4, city: "Bhubaneswar",
       venue: "Pipul Padmaja Premium Hotel and Convention", address: "", mapUrl: "https://maps.app.goo.gl/6CZwrM1jBBmgM3tb8", dress: "", note: "" }
   ],
